@@ -11,6 +11,7 @@ MemeFaked is an online game that aims to educate users on how to detect deep fak
 
 ## Medium Fidelity Prototype
 <img title="Medium fidelity prototype of our design" alt="" src="/docs/images/med_fidelity.png">
+
 - Restructured the toolbar layout to make it more intuitive
 - Added a video scrubbing bar to track video progress
 - Improved the colour scheme of the design and made the UI more engaging
