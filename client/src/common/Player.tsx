@@ -20,7 +20,7 @@ export const Player: FC = (): ReactElement => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const [videoSrc, setVideoSrc] = useState<string>("");
+  const [memevideo, setMemeVideo] = useState<IMemeVideo>();
 
   const getPlaystate = () => {
     return playstate === "playing" ? (
@@ -87,7 +87,7 @@ export const Player: FC = (): ReactElement => {
 
     async function fetchRandomVideo() {
       const vid = await getRandomVideo();
-      setVideoSrc(vid.payload.videoLink);
+      setMemeVideo(vid.payload);
     }
 
     fetchRandomVideo();
@@ -120,7 +120,7 @@ export const Player: FC = (): ReactElement => {
         <video
           ref={videoRef}
           // hardcode: https://ia600505.us.archive.org/21/items/82862e-882d-48b-1f-0d-3a-7f-0633af-1b-9c-31-1694064143721/82862e882d48b1f0d3a7f0633af1b9c31_1694064143721.mp4
-          src={videoSrc}
+          src={memevideo?.videoLink}
           width="100%"
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
