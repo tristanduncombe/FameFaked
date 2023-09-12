@@ -1,4 +1,4 @@
-import { Box, Container, IconButton } from "@mui/material";
+import { Box, Button, Container, IconButton } from "@mui/material";
 import {
   PlayArrow,
   Pause,
@@ -68,6 +68,11 @@ export const Player: FC = (): ReactElement => {
     videoRef.current!.muted = !isMuted;
   };
 
+  async function fetchRandomVideo() {
+    const vid = await getRandomVideo();
+    setMemeVideo(vid.payload);
+  }
+
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       if (isDragging && progressBarRef.current) {
@@ -85,11 +90,6 @@ export const Player: FC = (): ReactElement => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
 
-    async function fetchRandomVideo() {
-      const vid = await getRandomVideo();
-      setMemeVideo(vid.payload);
-    }
-
     fetchRandomVideo();
 
     return () => {
@@ -102,107 +102,145 @@ export const Player: FC = (): ReactElement => {
     <Box
       sx={{
         backgroundColor: "#0D0C1E",
-        color: "white",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        width: "100%",
-        position: "relative",
       }}
     >
-      <Container
-        maxWidth={false}
+      <Box
         sx={{
-          width: "100%",
+          backgroundColor: "#0D0C1E",
+          color: "white",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "80%",
+          position: "relative",
         }}
       >
-        <video
-          ref={videoRef}
-          // hardcode: https://ia600505.us.archive.org/21/items/82862e-882d-48b-1f-0d-3a-7f-0633af-1b-9c-31-1694064143721/82862e882d48b1f0d3a7f0633af1b9c31_1694064143721.mp4
-          src={memevideo?.videoLink}
-          width="100%"
-          onTimeUpdate={handleTimeUpdate}
-          onLoadedMetadata={handleLoadedMetadata}
-        />
-        <Box
-          ref={progressBarRef}
-          sx={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            width: "100%",
-            height: "5px",
-            backgroundColor: "rgba(255, 255, 255, 0.3)",
-            cursor: "pointer",
-          }}
-          onMouseDown={() => setIsDragging(true)}
-        >
-          <Box
-            sx={{
-              width: `${(position / duration) * 100}%`,
-              height: "100%",
-              backgroundColor: "white",
-            }}
-          />
-        </Box>
         <Container
+          maxWidth={false}
           sx={{
-            color: "white",
-            display: "flex",
-            justifyContent: "center",
+            width: "100%",
           }}
         >
-          <Box sx={{ color: "white" }}>
-            <IconButton
-              sx={{ color: "white" }}
-              ref={buttonRef}
-              onClick={() => {
-                handleFastRewind();
-                buttonRef.current!.blur();
+          <video
+            ref={videoRef}
+            // hardcode: https://ia600505.us.archive.org/21/items/82862e-882d-48b-1f-0d-3a-7f-0633af-1b-9c-31-1694064143721/82862e882d48b1f0d3a7f0633af1b9c31_1694064143721.mp4
+            src={memevideo?.videoLink}
+            width="100%"
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+          />
+          <Box
+            ref={progressBarRef}
+            sx={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              width: "100%",
+              height: "5px",
+              backgroundColor: "rgba(255, 255, 255, 0.3)",
+              cursor: "pointer",
+            }}
+            onMouseDown={() => setIsDragging(true)}
+          >
+            <Box
+              sx={{
+                width: `${(position / duration) * 100}%`,
+                height: "100%",
+                backgroundColor: "white",
               }}
-            >
-              <FastRewind />
-            </IconButton>
+            />
           </Box>
-          <Box sx={{ color: "white" }}>
-            <IconButton
-              sx={{ color: "white" }}
-              ref={buttonRef}
+          <Container
+            sx={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+              paddingBottom: "10px",
+            }}
+          >
+            <Button
+              variant="contained"
               onClick={() => {
-                handlePlayPause();
-                buttonRef.current!.blur();
+                memevideo?.deepfaked
+                  ? fetchRandomVideo()
+                  : alert("This video is not deepfaked!");
               }}
+              sx={{ color: "white", backgroundColor: "#FF0000" }}
             >
-              {getPlaystate()}
-            </IconButton>
-          </Box>
-          <Box sx={{ color: "white" }}>
-            <IconButton
-              sx={{ color: "white" }}
-              ref={buttonRef}
+              Fake
+            </Button>
+
+            <Box sx={{ color: "white" }}>
+              <IconButton
+                sx={{ color: "white" }}
+                ref={buttonRef}
+                onClick={() => {
+                  handleFastRewind();
+                  buttonRef.current!.blur();
+                }}
+              >
+                <FastRewind />
+              </IconButton>
+            </Box>
+            <Box sx={{ color: "white" }}>
+              <IconButton
+                sx={{ color: "white" }}
+                ref={buttonRef}
+                onClick={() => {
+                  handlePlayPause();
+                  buttonRef.current!.blur();
+                }}
+              >
+                {getPlaystate()}
+              </IconButton>
+            </Box>
+            <Box sx={{ color: "white" }}>
+              <IconButton
+                sx={{ color: "white" }}
+                ref={buttonRef}
+                onClick={() => {
+                  handleFastForward();
+                  buttonRef.current!.blur();
+                }}
+              >
+                <FastForward />
+              </IconButton>
+            </Box>
+            <Box sx={{ color: "white" }}>
+              <IconButton
+                sx={{ color: "white" }}
+                ref={buttonRef}
+                onClick={() => {
+                  handleMute();
+                  buttonRef.current!.blur();
+                }}
+              >
+                {isMuted ? <VolumeOff /> : <VolumeUp />}
+              </IconButton>
+            </Box>
+            <Button
+              variant="contained"
               onClick={() => {
-                handleFastForward();
-                buttonRef.current!.blur();
+                !memevideo?.deepfaked
+                  ? fetchRandomVideo()
+                  : alert("This video is deepfaked!");
               }}
+              sx={{ color: "white", backgroundColor: "#00FF00" }}
             >
-              <FastForward />
-            </IconButton>
-          </Box>
-          <Box sx={{ color: "white" }}>
-            <IconButton
-              sx={{ color: "white" }}
-              ref={buttonRef}
-              onClick={() => {
-                handleMute();
-                buttonRef.current!.blur();
-              }}
-            >
-              {isMuted ? <VolumeOff /> : <VolumeUp />}
-            </IconButton>
-          </Box>
+              Real
+            </Button>
+          </Container>
         </Container>
-      </Container>
+      </Box>
     </Box>
   );
 };
