@@ -119,7 +119,8 @@ export const Player: FC = (): ReactElement => {
       >
         <video
           ref={videoRef}
-          src="https://ia600505.us.archive.org/21/items/82862e-882d-48b-1f-0d-3a-7f-0633af-1b-9c-31-1694064143721/82862e882d48b1f0d3a7f0633af1b9c31_1694064143721.mp4"
+          // hardcode: https://ia600505.us.archive.org/21/items/82862e-882d-48b-1f-0d-3a-7f-0633af-1b-9c-31-1694064143721/82862e882d48b1f0d3a7f0633af1b9c31_1694064143721.mp4
+          src={videoSrc}
           width="100%"
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
