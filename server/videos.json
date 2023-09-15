@@ -1,0 +1,40 @@
+{
+    "videos": [
+        {
+            "videoLink": "https://ia600505.us.archive.org/8/items/hasbulla_kevinmccallister/hasbulla_kevinmccallister.mp4",
+            "deepfaked": true,
+            "difficulty": 2,
+            "region": ["North America"]
+        },
+        {
+            "videoLink": "https://ia800506.us.archive.org/28/items/morganfreeman_willsmith/morganfreeman_willsmith.mp4",
+            "deepfaked": true,
+            "difficulty": 1,
+            "region": ["North America"]
+        },
+        {
+            "videoLink": "https://ia802708.us.archive.org/21/items/youtube-3eAc0PFatgU/3eAc0PFatgU.mp4",
+            "deepfaked": false,
+            "difficulty": 2,
+            "region": ["North America", "Russia"]
+        },
+        {
+            "videoLink": "https://ia802501.us.archive.org/6/items/twitter-1520825380793470977/1520825380793470977.mp4",
+            "deepfaked": false,
+            "difficulty": 2,
+            "region": ["North America"]
+        },
+        {
+            "videoLink": "https://ia903002.us.archive.org/1/items/Instagram-ByaVigGFP2U/Video_by_bill_posters_uk-ByaVigGFP2U.mp4",
+            "deepfaked": true,
+            "difficulty": 4,
+            "region": ["North America"]
+        },
+        {
+            "videoLink": "https://ia902500.us.archive.org/13/items/youtube-AM74s8HzNxU/AM74s8HzNxU.mp4",
+            "deepfaked": false,
+            "difficulty": 2,
+            "region": ["North America"]
+        }
+    ]
+}
