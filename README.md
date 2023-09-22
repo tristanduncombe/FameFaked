@@ -17,7 +17,7 @@ MemeFaked (-> FAMEFAKED) is an online game that aims to educate users on how to 
 - Improved the colour scheme of the design and made the UI more engaging
 
 ## Low Fidelity FAMEFAKED Prototype
-<img title="Low fidelity prototype of our FAMEFAKED webpage design" alt="" src="/docs/images/FAMEFAKED_low_fidelity.png">
+<img title="Low fidelity prototype of our FAMEFAKED webpage design" alt="" src="/docs/images/FAMEFAKED_low_fidelity.PNG">
 
 - Changed name of website to "famefaked" instead of "memefaked"
     - Easier to identify and classify content
@@ -27,8 +27,8 @@ MemeFaked (-> FAMEFAKED) is an online game that aims to educate users on how to 
 - Tools better identified
 
 ## Low Fidelity Concolution Controls Prototype
-<img title="Low fidelity prototype of our convolution tools" alt="" src="/docs/images/convolution_tools_low_fidelity.png">
+<img title="Low fidelity prototype of our convolution tools" alt="" src="/docs/images/convolution_tools_low_fidelity.PNG">
 
 - Intuitive and simple interface
 - Allows users to select and examine the effects of various established kernels on video content
-- Allows users to apply their learning in modification of the kernels 
+- Allows users to apply their learning in modification of the kernels
