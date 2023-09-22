@@ -31,4 +31,4 @@ MemeFaked (-> FAMEFAKED) is an online game that aims to educate users on how to 
 
 - Intuitive and simple interface
 - Allows users to select and examine the effects of various established kernels on video content
-- Allows users to apply their learning in modification of the kernels
+- Allows users to apply their learning in modification of the kernels 
