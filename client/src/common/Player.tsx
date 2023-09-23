@@ -115,7 +115,15 @@ export default function Player(): ReactElement {
       }}
     >
       {modalOpen && (
-        <EndModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <EndModal
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          setVideoIndex={setVideoIndex}
+          setScore={setScore}
+          score={score}
+          famevideos={famevideos}
+          setFameVideos={setFameVideos}
+        />
       )}
       <Box
         sx={{
