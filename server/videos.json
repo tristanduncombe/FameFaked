@@ -1,151 +1,110 @@
-{
-    "videos": [
-        {
-            "videoLink": "https://ia600505.us.archive.org/8/items/hasbulla_kevinmccallister/hasbulla_kevinmccallister.mp4",
-            "deepfaked": true,
-            "difficulty": 2,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia800506.us.archive.org/28/items/morganfreeman_willsmith/morganfreeman_willsmith.mp4",
-            "deepfaked": true,
-            "difficulty": 1,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia802708.us.archive.org/21/items/youtube-3eAc0PFatgU/3eAc0PFatgU.mp4",
-            "deepfaked": false,
-            "difficulty": 2,
-            "region": [
-                "North America",
-                "Russia"
-            ]
-        },
-        {
-            "videoLink": "https://ia802501.us.archive.org/6/items/twitter-1520825380793470977/1520825380793470977.mp4",
-            "deepfaked": false,
-            "difficulty": 2,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia903002.us.archive.org/1/items/Instagram-ByaVigGFP2U/Video_by_bill_posters_uk-ByaVigGFP2U.mp4",
-            "deepfaked": true,
-            "difficulty": 4,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia902500.us.archive.org/13/items/youtube-AM74s8HzNxU/AM74s8HzNxU.mp4",
-            "deepfaked": false,
-            "difficulty": 2,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia600501.us.archive.org/0/items/home-stallone-deep-fake/Home%20Stallone%20%5BDeepFake%5D.mp4",
-            "deepfaked": true,
-            "difficulty": 2,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia801704.us.archive.org/33/items/ultra-realistic-deepfake-of-elon-musk/Ultra%20realistic%20Deepfake%20of%20Elon%20Musk.mp4",
-            "deepfaked": true,
-            "difficulty": 3,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://archive.org/details/yt-1s.com-elonmusk-dogecoin-this-man-pissed-me-off-when-he-gave-me-dogecoin-i-ch",
-            "deepfaked": false,
-            "difficulty": 3,
-            "region": [
-                "North America",
-                "China"
-            ]
-        },
-        {
-            "videoLink": "https://ia902302.us.archive.org/17/items/dqck-5o-fcb-jg-rkrdz/Dqck5oFcbJgRkrdz.mp4",
-            "deepfaked": true,
-            "difficulty": 4,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia800509.us.archive.org/15/items/zegdk-zu-8ia-mql-ila/ZEGdkZU8iaMqlILa.mp4",
-            "deepfaked": true,
-            "difficulty": 1,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia800507.us.archive.org/15/items/iauQWw22xjnZDrK_/iauQWw22xjnZDrK_.mp4",
-            "deepfaked": true,
-            "difficulty": 2,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia902302.us.archive.org/27/items/z-9-lauv-r-6-nt-mqhk-qx/Z9LauvR6NtMQHkQx.mp4",
-            "deepfaked": true,
-            "difficulty": 3,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia600508.us.archive.org/22/items/hbuya-84-op-86-t-13-q/HBUYa84OP86T13_q.mp4",
-            "deepfaked": true,
-            "difficulty": 8,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia804700.us.archive.org/22/items/eyd-dps-gqw-dta-skc/EYdDps_GqwDTaSKc.mp4",
-            "deepfaked": false,
-            "difficulty": 3,
-            "region": [
-                "North America"
-            ]
-        },
-        {
-            "videoLink": "https://ia902608.us.archive.org/16/items/3r-hg-pxxxn-hlurm-hq/3rHgPXxxnHLurmHq.mp4",
-            "deepfaked": false,
-            "difficulty": 1,
-            "region": [
-                "Oceania"
-            ]
-        },
-        {
-            "videoLink": "https://ia600508.us.archive.org/24/items/z-25g-5-ek-4gb-bh-1-kqh/Z25g5Ek4gbBh1Kqh.mp4",
-            "deepfaked": false,
-            "difficulty": 2,
-            "region": [
-                "Oceania"
-            ]
-        },
-        {
-            "videoLink": "https://ia601404.us.archive.org/8/items/pgbnkwa-8-gb-ncpup-e/PGbnkwa8GbNCPupE.mp4",
-            "deepfaked": false,
-            "difficulty": 2,
-            "region": [
-                "North America"
-            ]
-        }
-        
-    ]
-}
+[
+  {
+    "videoLink": "https://ia600505.us.archive.org/8/items/hasbulla_kevinmccallister/hasbulla_kevinmccallister.mp4",
+    "deepfaked": true,
+    "difficulty": 2,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia800506.us.archive.org/28/items/morganfreeman_willsmith/morganfreeman_willsmith.mp4",
+    "deepfaked": true,
+    "difficulty": 1,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia802708.us.archive.org/21/items/youtube-3eAc0PFatgU/3eAc0PFatgU.mp4",
+    "deepfaked": false,
+    "difficulty": 2,
+    "region": ["North America", "Russia"]
+  },
+  {
+    "videoLink": "https://ia802501.us.archive.org/6/items/twitter-1520825380793470977/1520825380793470977.mp4",
+    "deepfaked": false,
+    "difficulty": 2,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia903002.us.archive.org/1/items/Instagram-ByaVigGFP2U/Video_by_bill_posters_uk-ByaVigGFP2U.mp4",
+    "deepfaked": true,
+    "difficulty": 4,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia902500.us.archive.org/13/items/youtube-AM74s8HzNxU/AM74s8HzNxU.mp4",
+    "deepfaked": false,
+    "difficulty": 2,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia600501.us.archive.org/0/items/home-stallone-deep-fake/Home%20Stallone%20%5BDeepFake%5D.mp4",
+    "deepfaked": true,
+    "difficulty": 2,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia801704.us.archive.org/33/items/ultra-realistic-deepfake-of-elon-musk/Ultra%20realistic%20Deepfake%20of%20Elon%20Musk.mp4",
+    "deepfaked": true,
+    "difficulty": 3,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://archive.org/details/yt-1s.com-elonmusk-dogecoin-this-man-pissed-me-off-when-he-gave-me-dogecoin-i-ch",
+    "deepfaked": false,
+    "difficulty": 3,
+    "region": ["North America", "China"]
+  },
+  {
+    "videoLink": "https://ia902302.us.archive.org/17/items/dqck-5o-fcb-jg-rkrdz/Dqck5oFcbJgRkrdz.mp4",
+    "deepfaked": true,
+    "difficulty": 4,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia800509.us.archive.org/15/items/zegdk-zu-8ia-mql-ila/ZEGdkZU8iaMqlILa.mp4",
+    "deepfaked": true,
+    "difficulty": 1,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia800507.us.archive.org/15/items/iauQWw22xjnZDrK_/iauQWw22xjnZDrK_.mp4",
+    "deepfaked": true,
+    "difficulty": 2,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia902302.us.archive.org/27/items/z-9-lauv-r-6-nt-mqhk-qx/Z9LauvR6NtMQHkQx.mp4",
+    "deepfaked": true,
+    "difficulty": 3,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia600508.us.archive.org/22/items/hbuya-84-op-86-t-13-q/HBUYa84OP86T13_q.mp4",
+    "deepfaked": true,
+    "difficulty": 8,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia804700.us.archive.org/22/items/eyd-dps-gqw-dta-skc/EYdDps_GqwDTaSKc.mp4",
+    "deepfaked": false,
+    "difficulty": 3,
+    "region": ["North America"]
+  },
+  {
+    "videoLink": "https://ia902608.us.archive.org/16/items/3r-hg-pxxxn-hlurm-hq/3rHgPXxxnHLurmHq.mp4",
+    "deepfaked": false,
+    "difficulty": 1,
+    "region": ["Oceania"]
+  },
+  {
+    "videoLink": "https://ia600508.us.archive.org/24/items/z-25g-5-ek-4gb-bh-1-kqh/Z25g5Ek4gbBh1Kqh.mp4",
+    "deepfaked": false,
+    "difficulty": 2,
+    "region": ["Oceania"]
+  },
+  {
+    "videoLink": "https://ia601404.us.archive.org/8/items/pgbnkwa-8-gb-ncpup-e/PGbnkwa8GbNCPupE.mp4",
+    "deepfaked": false,
+    "difficulty": 2,
+    "region": ["North America"]
+  }
+]
