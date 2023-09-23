@@ -17,5 +17,5 @@ export const getFetcher = async (url: string, cookie?: string) => {
 };
 
 export async function getRandomVideo(): Promise<any> {
-  return await getFetcher("/memevideo/random");
+  return await getFetcher("/famevideo/random");
 }

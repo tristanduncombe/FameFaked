@@ -2,7 +2,7 @@ version: "3.7"
 services:
   mongodb:
     image: mongo:latest
-    container_name: memefaked
+    container_name: famefaked
     volumes:
       - /data/db
     environment:
@@ -11,7 +11,7 @@ services:
     ports:
       - "27017:27017"
   server:
-    container_name: memefaked-server
+    container_name: famefaked-server
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -26,7 +26,7 @@ services:
     depends_on:
       - mongodb
   client:
-    container_name: memefaked-client
+    container_name: famefaked-client
     build:
       context: ./client
       dockerfile: Dockerfile

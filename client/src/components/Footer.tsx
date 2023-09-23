@@ -14,12 +14,12 @@ export const Footer: FC = (): ReactElement => {
             <Container maxWidth="md" sx={{ p: 2 }}>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={12} sm={6}>
-                        <Typography variant="h5">MEMEFAKED</Typography>
+                        <Typography variant="h5">FAMEFAKED</Typography>
                         <Typography variant="body1">tagline</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <Typography variant="body1">
-                            &copy; {new Date().getFullYear()} MemeFaked. All
+                            &copy; {new Date().getFullYear()} FameFaked. All
                             rights reserved.
                         </Typography>
                         <Typography variant="body1">
