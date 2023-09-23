@@ -1,25 +1,25 @@
 import {
-    IFameVideoComponent,
-    FameVideoComponent,
+  IFameVideoComponent,
+  FameVideoComponent,
 } from "./collections/FameVideo/FameVideoCollection";
 import { ConfigType } from "./config/config.schema";
 import { MongoClient } from "mongodb";
 export interface IContainer {
-    fameVideoComponent: IFameVideoComponent;
+  fameVideoComponent: IFameVideoComponent;
 }
 
 const Container = async (config: ConfigType): Promise<IContainer> => {
-    const client = new MongoClient(config.DATABASE_URL);
+  const client = new MongoClient(config.DATABASE_URL);
 
-    await client.connect();
+  await client.connect();
 
-    const db = client.db(config.DATABASE_NAME);
+  const db = client.db(config.DATABASE_NAME);
 
-    const fameVideoComponent = FameVideoComponent(db);
+  const fameVideoComponent = FameVideoComponent(db);
 
-    return {
-        fameVideoComponent,
-    };
+  return {
+    fameVideoComponent,
+  };
 };
 
 export default Container;

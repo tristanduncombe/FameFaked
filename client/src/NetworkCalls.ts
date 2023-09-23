@@ -16,6 +16,6 @@ export const getFetcher = async (url: string, cookie?: string) => {
   return respJSON;
 };
 
-export async function getRandomVideo(): Promise<any> {
+export async function getVideos(): Promise<any> {
   return await getFetcher("/famevideo/random");
 }

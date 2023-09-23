@@ -8,7 +8,9 @@
     "build": "tsc",
     "pretty": "prettier --write ./src",
     "lint": "eslint src/ --ext .ts",
-    "test": "jest"
+    "test": "jest",
+    "seed": "ts-node src/db/seed.ts",
+    "docker:seed": "docker-compose exec server npm run seed"
   },
   "dependencies": {
     "@types/jest": "^29.5.3",
