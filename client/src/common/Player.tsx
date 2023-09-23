@@ -63,10 +63,6 @@ export default function Player(): ReactElement {
     setPosition(videoRef.current?.currentTime || 0);
   };
 
-  const handleLoadedMetadata = () => {
-    setDuration(videoRef.current?.duration || 0);
-  };
-
   const handleMute = () => {
     setIsMuted(!isMuted);
     videoRef.current!.muted = !isMuted;
@@ -149,7 +145,6 @@ export default function Player(): ReactElement {
             src={famevideos[videoIndex]?.videoLink}
             width="100%"
             onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleLoadedMetadata}
           />
 
           <Container
