@@ -1,15 +1,26 @@
-import React, { ReactElement, FC } from "react";
+import React, { ReactElement, FC, useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Container, Divider, Grid } from "@mui/material";
+import { Button, Container, Divider, Grid, Modal } from "@mui/material";
+import { getRegions } from "../NetworkCalls";
 
 interface HeaderProps {
   score: number;
 }
 
 function Header({ score }: HeaderProps): ReactElement {
+  const [languageModal, setLanguageModal] = useState<boolean>(false);
+  const [regionList, setRegionList] = useState<string[]>([]);
+  const [region, setRegion] = useState<string>("Global");
+
+  useEffect(() => {
+    getRegions().then((regions) => {
+      setRegionList(regions.payload);
+    });
+  }, []);
+
   return (
     <Box
       sx={{
@@ -94,33 +105,85 @@ function Header({ score }: HeaderProps): ReactElement {
             sx={{
               display: "flex",
               flexDirection: "row",
+              color: "white",
             }}
           >
-            <Typography
-              variant="caption"
-              component="div"
-              sx={{
-                color: "white",
-                fontSize: "1.5rem",
-                fontStyle: "italic",
-              }}
-            >
-              Privacy Policy
-            </Typography>
-            <Typography
-              variant="caption"
-              component="div"
-              sx={{
-                color: "white",
-                fontSize: "1.5rem",
-                fontStyle: "italic",
-              }}
-            >
-              Language
-            </Typography>
+            <h1>
+              Region: <span> {region} </span>
+              <svg
+                onClick={() => setLanguageModal(true)}
+                cursor="pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="white"
+                className="bi bi-chevron-down"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z"
+                />
+              </svg>
+            </h1>
           </Grid>
         </Toolbar>
       </Container>
+      {languageModal && (
+        <Modal
+          open={languageModal}
+          onClose={() => setLanguageModal(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Container
+            maxWidth={false}
+            sx={{
+              width: "100vh",
+            }}
+          >
+            <Box
+              sx={{
+                backgroundColor: "#0D0C1E",
+                color: "white",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "50%",
+                height: "50%",
+                position: "absolute",
+                top: "25%",
+                left: "25%",
+                border: "white",
+                borderStyle: "solid",
+                borderWidth: "2px",
+                borderRadius: "10px",
+              }}
+            >
+              <h1>Language</h1>
+              {regionList.map((region) => (
+                <Button
+                  id={region}
+                  variant="contained"
+                  sx={{
+                    color: "black",
+                    backgroundColor: "white",
+                    width: "50%",
+                    marginTop: "10px",
+                  }}
+                  onClick={() => {
+                    setRegion(region);
+                    setLanguageModal(false);
+                  }}
+                >
+                  {region}
+                </Button>
+              ))}
+            </Box>
+          </Container>
+        </Modal>
+      )}
     </Box>
   );
 }

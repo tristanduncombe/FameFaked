@@ -19,3 +19,7 @@ export const getFetcher = async (url: string, cookie?: string) => {
 export async function getVideos(): Promise<any> {
   return await getFetcher("/famevideo/random");
 }
+
+export async function getRegions(): Promise<any> {
+  return await getFetcher("/famevideo/regions");
+}
