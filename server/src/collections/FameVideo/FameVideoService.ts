@@ -13,6 +13,7 @@ export interface IFameVideoService {
     videoLink: string,
     deepfaked: boolean
   ): Promise<SuccessReturn<boolean> | FailReturn>;
+  getRegions(): Promise<SuccessReturn<string[]> | FailReturn>;
 }
 
 export default (UserRepository: IFameVideoRepository): IFameVideoService => {
@@ -20,5 +21,6 @@ export default (UserRepository: IFameVideoRepository): IFameVideoService => {
     getVideos: async () => await UserRepository.getVideos(),
     insertVideo: async (videoLink, deepfaked) =>
       await UserRepository.insertVideo(videoLink, deepfaked),
+    getRegions: async () => await UserRepository.getRegions(),
   };
 };

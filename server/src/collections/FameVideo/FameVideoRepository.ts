@@ -13,6 +13,7 @@ export interface IFameVideoRepository {
     videoLink: string,
     deepfaked: boolean
   ): Promise<SuccessReturn<boolean> | FailReturn>;
+  getRegions(): Promise<SuccessReturn<string[]> | FailReturn>;
 }
 
 export default (FameVideoCollection: Collection): IFameVideoRepository => {
@@ -38,6 +39,13 @@ export default (FameVideoCollection: Collection): IFameVideoRepository => {
       if (!FameVideo) return failure("No video found");
 
       return success(true);
+    },
+    getRegions: async () => {
+      const regions = await FameVideoCollection.distinct("region");
+
+      if (!regions) return failure("No regions found");
+
+      return success(regions);
     },
   };
 };

@@ -9,6 +9,7 @@ export const FameVideoRouter = (
   const router = Router();
 
   router.get("/random", FameVideoController.getVideos);
+  router.get("/regions", FameVideoController.getRegions);
   router.post("/insert", FameVideoController.insertVideo);
 
   return router;

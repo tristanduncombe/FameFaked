@@ -12,6 +12,10 @@ export interface IFameVideoController {
     req: Request,
     res: Response
   ) => Promise<Response<boolean | void>>;
+  getRegions: (
+    req: Request,
+    res: Response
+  ) => Promise<Response<string[] | void>>;
 }
 
 export default (FameVideoService: IFameVideoService): IFameVideoController => {
@@ -36,6 +40,15 @@ export default (FameVideoService: IFameVideoService): IFameVideoController => {
 
         if (!FameVideo.success) return failResponse(res, "No video found");
         return successResponse(res, FameVideo.payload);
+      } catch (err) {
+        return failResponse(res, err);
+      }
+    },
+    getRegions: async (req, res) => {
+      try {
+        const regions = await FameVideoService.getRegions();
+        if (!regions.success) return failResponse(res, "No regions found");
+        return successResponse(res, regions.payload);
       } catch (err) {
         return failResponse(res, err);
       }
