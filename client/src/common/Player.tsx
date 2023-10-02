@@ -139,14 +139,29 @@ export default function Player(): ReactElement {
             width: "100%",
           }}
         >
-          <video
-            ref={videoRef}
-            // hardcode: https://ia600505.us.archive.org/21/items/82862e-882d-48b-1f-0d-3a-7f-0633af-1b-9c-31-1694064143721/82862e882d48b1f0d3a7f0633af1b9c31_1694064143721.mp4
-            src={famevideos[videoIndex]?.videoLink}
-            width="100%"
-            onTimeUpdate={handleTimeUpdate}
-          />
-
+          <div
+            style={{
+              position: "relative",
+              paddingTop: "56.25%", // 16:9 aspect ratio
+            }}
+          >
+            <video
+              ref={videoRef}
+              src={famevideos[videoIndex]?.videoLink}
+              width="100%"
+              height="100%"
+              onTimeUpdate={handleTimeUpdate}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+              }}
+            />
+          </div>
           <Container
             sx={{
               color: "white",
@@ -163,6 +178,7 @@ export default function Player(): ReactElement {
                 if (famevideos[videoIndex]?.deepfaked) {
                   setScore(score + 1);
                   setVideoIndex(videoIndex + 1);
+                  setPlaystate("paused");
                 } else {
                   setModalOpen(true);
                 }
@@ -228,6 +244,7 @@ export default function Player(): ReactElement {
                 } else {
                   setScore(score + 1);
                   setVideoIndex(videoIndex + 1);
+                  setPlaystate("paused");
                 }
               }}
               sx={{ color: "white", backgroundColor: "#00FF00" }}
