@@ -40,6 +40,13 @@ export default function Player(): ReactElement {
     );
   };
 
+  const resetVideo = () => {
+    videoRef.current!.currentTime = 0;
+    setPosition(0);
+    setPlaystate("paused");
+    handlePlayPause();
+  };
+
   const handlePlayPause = () => {
     if (playstate === "playing") {
       videoRef.current?.pause();
@@ -184,11 +191,10 @@ export default function Player(): ReactElement {
                   if (famevideos[videoIndex]?.deepfaked) {
                     setScore(score + 1);
                     setVideoIndex(videoIndex + 1);
-                    setPlaystate("paused");
                   } else {
                     setModalOpen(true);
-                    setPlaystate("paused");
                   }
+                  resetVideo();
                 }}
                 sx={{ color: "white", backgroundColor: "#FF0000" }}
               >
@@ -248,12 +254,11 @@ export default function Player(): ReactElement {
                 onClick={() => {
                   if (famevideos[videoIndex]?.deepfaked) {
                     setModalOpen(true);
-                    setPlaystate("paused");
                   } else {
                     setScore(score + 1);
                     setVideoIndex(videoIndex + 1);
-                    setPlaystate("paused");
                   }
+                  resetVideo();
                 }}
                 sx={{ color: "white", backgroundColor: "#00FF00" }}
               >
