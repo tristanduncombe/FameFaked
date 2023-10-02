@@ -1,4 +1,4 @@
-import { Box, Container, Modal } from "@mui/material";
+import { Box, Button, Container, Modal } from "@mui/material";
 import { ReactElement } from "react";
 import { IFameVideo } from "../common/FameVideo";
 
@@ -21,8 +21,21 @@ export default function EndModal({
   setScore,
   setFameVideos,
 }: IEndModal): ReactElement {
+  const resetGame = () => {
+    setModalOpen(false);
+    setVideoIndex(0);
+    setScore(0);
+    setFameVideos(famevideos.sort(() => Math.random() - 0.5));
+  };
+
   return (
-    <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+    <Modal
+      open={modalOpen}
+      onClose={() => {
+        setModalOpen(false);
+        resetGame();
+      }}
+    >
       <Box
         sx={{
           backgroundColor: "#0D0C1E",
@@ -31,9 +44,15 @@ export default function EndModal({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          width: "100%",
-          height: "100%",
-          position: "relative",
+          width: "50%",
+          height: "50%",
+          position: "absolute",
+          top: "25%",
+          left: "25%",
+          border: "white",
+          borderStyle: "solid",
+          borderWidth: "2px",
+          borderRadius: "10px",
         }}
       >
         <Container
@@ -46,6 +65,7 @@ export default function EndModal({
             sx={{
               color: "white",
               display: "flex",
+              flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
               width: "100%",
@@ -55,29 +75,18 @@ export default function EndModal({
           >
             <h1>Game Over</h1>
             <h2>Score: {score}</h2>
-          </Box>
-
-          <Box
-            sx={{
-              color: "white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-              paddingBottom: "10px",
-            }}
-          >
-            <button
-              onClick={() => {
-                setModalOpen(false);
-                setVideoIndex(0);
-                setScore(0);
-                setFameVideos(famevideos.sort(() => Math.random() - 0.5));
+            <Button
+              variant="contained"
+              sx={{
+                color: "black",
+                backgroundColor: "white",
+                width: "50%",
+                marginTop: "10px",
               }}
+              onClick={() => resetGame()}
             >
               Play Again
-            </button>
+            </Button>
           </Box>
         </Container>
       </Box>

@@ -10,7 +10,6 @@ import {
 import React, { FC, ReactElement, useRef, useState, useEffect } from "react";
 import { getVideos } from "../NetworkCalls";
 import { IFameVideo } from "./FameVideo";
-import Score from "../components/Score";
 import EndModal from "../components/EndModal";
 import Header from "../components/Header";
 
@@ -41,10 +40,7 @@ export default function Player(): ReactElement {
   };
 
   const resetVideo = () => {
-    videoRef.current!.currentTime = 0;
-    setPosition(0);
-    setPlaystate("paused");
-    handlePlayPause();
+    videoRef.current?.pause();
   };
 
   const handlePlayPause = () => {
