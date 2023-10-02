@@ -12,6 +12,7 @@ import { getVideos } from "../NetworkCalls";
 import { IFameVideo } from "./FameVideo";
 import Score from "../components/Score";
 import EndModal from "../components/EndModal";
+import Header from "../components/Header";
 
 export default function Player(): ReactElement {
   const [playstate, setPlaystate] = useState<"playing" | "paused">("paused");
@@ -100,162 +101,168 @@ export default function Player(): ReactElement {
   }, [duration, isDragging]);
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "#0D0C1E",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {modalOpen && (
-        <EndModal
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-          setVideoIndex={setVideoIndex}
-          setScore={setScore}
-          score={score}
-          famevideos={famevideos}
-          setFameVideos={setFameVideos}
-        />
-      )}
+    <>
+      <Header score={score} />
       <Box
         sx={{
           backgroundColor: "#0D0C1E",
-          color: "white",
+          width: "100%",
+          height: "80%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          width: "80%",
-          position: "relative",
         }}
       >
-        <Container
-          maxWidth={false}
+        {modalOpen && (
+          <EndModal
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            setVideoIndex={setVideoIndex}
+            setScore={setScore}
+            score={score}
+            famevideos={famevideos}
+            setFameVideos={setFameVideos}
+          />
+        )}
+        <Box
           sx={{
-            width: "100%",
+            backgroundColor: "#0D0C1E",
+            color: "white",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "80%",
+            height: "100%",
+            position: "relative",
           }}
         >
-          <div
-            style={{
-              position: "relative",
-              paddingTop: "56.25%", // 16:9 aspect ratio
-            }}
-          >
-            <video
-              ref={videoRef}
-              src={famevideos[videoIndex]?.videoLink}
-              width="100%"
-              height="100%"
-              onTimeUpdate={handleTimeUpdate}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                paddingTop: "20px",
-                paddingBottom: "20px",
-              }}
-            />
-          </div>
           <Container
+            maxWidth={false}
             sx={{
-              color: "white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
               width: "100%",
               height: "100%",
             }}
           >
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (famevideos[videoIndex]?.deepfaked) {
-                  setScore(score + 1);
-                  setVideoIndex(videoIndex + 1);
-                  setPlaystate("paused");
-                } else {
-                  setModalOpen(true);
-                }
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "80%",
               }}
-              sx={{ color: "white", backgroundColor: "#FF0000" }}
             >
-              Fake
-            </Button>
+              <video
+                ref={videoRef}
+                src={famevideos[videoIndex]?.videoLink}
+                width="100%"
+                height="100%"
+                onTimeUpdate={handleTimeUpdate}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  paddingTop: "20px",
+                  paddingBottom: "20px",
+                }}
+              />
+            </div>
+            <Container
+              sx={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (famevideos[videoIndex]?.deepfaked) {
+                    setScore(score + 1);
+                    setVideoIndex(videoIndex + 1);
+                    setPlaystate("paused");
+                  } else {
+                    setModalOpen(true);
+                    setPlaystate("paused");
+                  }
+                }}
+                sx={{ color: "white", backgroundColor: "#FF0000" }}
+              >
+                Fake
+              </Button>
 
-            <Box sx={{ color: "white" }}>
-              <IconButton
-                sx={{ color: "white" }}
-                ref={buttonRef}
+              <Box sx={{ color: "white" }}>
+                <IconButton
+                  sx={{ color: "white" }}
+                  ref={buttonRef}
+                  onClick={() => {
+                    handleFastRewind();
+                    buttonRef.current!.blur();
+                  }}
+                >
+                  <FastRewind />
+                </IconButton>
+              </Box>
+              <Box sx={{ color: "white" }}>
+                <IconButton
+                  sx={{ color: "white" }}
+                  ref={buttonRef}
+                  onClick={() => {
+                    handlePlayPause();
+                    buttonRef.current!.blur();
+                  }}
+                >
+                  {getPlaystate()}
+                </IconButton>
+              </Box>
+              <Box sx={{ color: "white" }}>
+                <IconButton
+                  sx={{ color: "white" }}
+                  ref={buttonRef}
+                  onClick={() => {
+                    handleFastForward();
+                    buttonRef.current!.blur();
+                  }}
+                >
+                  <FastForward />
+                </IconButton>
+              </Box>
+              <Box sx={{ color: "white" }}>
+                <IconButton
+                  sx={{ color: "white" }}
+                  ref={buttonRef}
+                  onClick={() => {
+                    handleMute();
+                    buttonRef.current!.blur();
+                  }}
+                >
+                  {isMuted ? <VolumeOff /> : <VolumeUp />}
+                </IconButton>
+              </Box>
+              <Button
+                variant="contained"
                 onClick={() => {
-                  handleFastRewind();
-                  buttonRef.current!.blur();
+                  if (famevideos[videoIndex]?.deepfaked) {
+                    setModalOpen(true);
+                    setPlaystate("paused");
+                  } else {
+                    setScore(score + 1);
+                    setVideoIndex(videoIndex + 1);
+                    setPlaystate("paused");
+                  }
                 }}
+                sx={{ color: "white", backgroundColor: "#00FF00" }}
               >
-                <FastRewind />
-              </IconButton>
-            </Box>
-            <Box sx={{ color: "white" }}>
-              <IconButton
-                sx={{ color: "white" }}
-                ref={buttonRef}
-                onClick={() => {
-                  handlePlayPause();
-                  buttonRef.current!.blur();
-                }}
-              >
-                {getPlaystate()}
-              </IconButton>
-            </Box>
-            <Box sx={{ color: "white" }}>
-              <IconButton
-                sx={{ color: "white" }}
-                ref={buttonRef}
-                onClick={() => {
-                  handleFastForward();
-                  buttonRef.current!.blur();
-                }}
-              >
-                <FastForward />
-              </IconButton>
-            </Box>
-            <Box sx={{ color: "white" }}>
-              <IconButton
-                sx={{ color: "white" }}
-                ref={buttonRef}
-                onClick={() => {
-                  handleMute();
-                  buttonRef.current!.blur();
-                }}
-              >
-                {isMuted ? <VolumeOff /> : <VolumeUp />}
-              </IconButton>
-            </Box>
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (famevideos[videoIndex]?.deepfaked) {
-                  setModalOpen(true);
-                } else {
-                  setScore(score + 1);
-                  setVideoIndex(videoIndex + 1);
-                  setPlaystate("paused");
-                }
-              }}
-              sx={{ color: "white", backgroundColor: "#00FF00" }}
-            >
-              Real
-            </Button>
+                Real
+              </Button>
+            </Container>
           </Container>
-        </Container>
+        </Box>
       </Box>
-
-      <Score score={score} />
-    </Box>
+    </>
   );
 }
