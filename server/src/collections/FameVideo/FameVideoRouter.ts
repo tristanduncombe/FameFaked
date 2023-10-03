@@ -11,6 +11,7 @@ export const FameVideoRouter = (
   router.get("/random", FameVideoController.getVideos);
   router.get("/regions", FameVideoController.getRegions);
   router.post("/insert", FameVideoController.insertVideo);
+  router.get("/region/:region", FameVideoController.getVideosByRegion);
 
   return router;
 };

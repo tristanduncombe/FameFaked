@@ -14,6 +14,9 @@ export interface IFameVideoRepository {
     deepfaked: boolean
   ): Promise<SuccessReturn<boolean> | FailReturn>;
   getRegions(): Promise<SuccessReturn<string[]> | FailReturn>;
+  getVideosByRegion(
+    region: string
+  ): Promise<SuccessReturn<IFameVideo[]> | FailReturn>;
 }
 
 export default (FameVideoCollection: Collection): IFameVideoRepository => {
@@ -46,6 +49,15 @@ export default (FameVideoCollection: Collection): IFameVideoRepository => {
       if (!regions) return failure("No regions found");
 
       return success(regions);
+    },
+    getVideosByRegion: async (region) => {
+      const FameVideos = await FameVideoCollection.find<IFameVideo>({
+        region,
+      }).toArray();
+
+      if (!FameVideos) return failure("No videos found");
+
+      return success(FameVideos);
     },
   };
 };

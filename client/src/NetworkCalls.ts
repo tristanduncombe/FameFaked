@@ -20,6 +20,10 @@ export async function getVideos(): Promise<any> {
   return await getFetcher("/famevideo/random");
 }
 
+export async function getVideosByRegion(region: string): Promise<any> {
+  return await getFetcher(`/famevideo/region/${region}`);
+}
+
 export async function getRegions(): Promise<any> {
   return await getFetcher("/famevideo/regions");
 }
