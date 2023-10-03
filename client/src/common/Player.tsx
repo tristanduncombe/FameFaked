@@ -8,13 +8,14 @@ import {
   VolumeUp,
 } from "@mui/icons-material";
 import React, { FC, ReactElement, useRef, useState, useEffect } from "react";
-import { getVideos } from "../NetworkCalls";
+import { getVideos, getVideosByRegion } from "../NetworkCalls";
 import { IFameVideo } from "./FameVideo";
 import EndModal from "../components/EndModal";
 import Header from "../components/Header";
 
 export default function Player(): ReactElement {
   const [playstate, setPlaystate] = useState<"playing" | "paused">("paused");
+  const [region, setRegion] = useState<string>("Global");
   const [position, setPosition] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -73,7 +74,8 @@ export default function Player(): ReactElement {
   };
 
   async function fetchVideos() {
-    const vid = await getVideos();
+    const vid =
+      region === "Global" ? await getVideos() : await getVideosByRegion(region);
     setFameVideos(vid.payload);
     setVideoIndex(0);
   }
@@ -101,11 +103,11 @@ export default function Player(): ReactElement {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [duration, isDragging]);
+  }, [duration, isDragging, region]);
 
   return (
     <>
-      <Header score={score} />
+      <Header score={score} region={region} setRegion={setRegion} />
       <Box
         sx={{
           backgroundColor: "#0D0C1E",

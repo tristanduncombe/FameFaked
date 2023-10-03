@@ -8,12 +8,13 @@ import { getRegions } from "../NetworkCalls";
 
 interface HeaderProps {
   score: number;
+  region: string;
+  setRegion: (region: string) => void;
 }
 
-function Header({ score }: HeaderProps): ReactElement {
+function Header({ score, region, setRegion }: HeaderProps): ReactElement {
   const [languageModal, setLanguageModal] = useState<boolean>(false);
   const [regionList, setRegionList] = useState<string[]>([]);
-  const [region, setRegion] = useState<string>("Global");
 
   useEffect(() => {
     getRegions().then((regions) => {
