@@ -16,33 +16,14 @@ import Header from "../components/Header";
 export default function Player(): ReactElement {
   const [playstate, setPlaystate] = useState<"playing" | "paused">("paused");
   const [region, setRegion] = useState<string>("Global");
-  const [position, setPosition] = useState<number>(0);
-  const [duration, setDuration] = useState<number>(0);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [, setPosition] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
   const [famevideos, setFameVideos] = useState<IFameVideo[]>([]);
   const [videoIndex, setVideoIndex] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
-
-  const getPlaystate = () => {
-    return playstate === "playing" ? (
-      <span>
-        <Pause />
-      </span>
-    ) : (
-      <span>
-        <PlayArrow />
-      </span>
-    );
-  };
-
-  const resetVideo = () => {
-    videoRef.current?.pause();
-  };
 
   const handlePlayPause = () => {
     if (playstate === "playing") {
@@ -81,29 +62,9 @@ export default function Player(): ReactElement {
   }
 
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      if (isDragging && progressBarRef.current) {
-        const progressBarRect = progressBarRef.current.getBoundingClientRect();
-        const progress =
-          (event.clientX - progressBarRect.left) / progressBarRect.width;
-        setPosition(progress * duration);
-      }
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-
     fetchVideos();
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [duration, isDragging, region]);
+    setScore(0);
+  }, [region]);
 
   return (
     <>
@@ -192,7 +153,7 @@ export default function Player(): ReactElement {
                   } else {
                     setModalOpen(true);
                   }
-                  resetVideo();
+                  handlePlayPause();
                 }}
                 sx={{ color: "white", backgroundColor: "#FF0000" }}
               >
@@ -220,7 +181,15 @@ export default function Player(): ReactElement {
                     buttonRef.current!.blur();
                   }}
                 >
-                  {getPlaystate()}
+                  {playstate === "playing" ? (
+                    <span>
+                      <Pause />
+                    </span>
+                  ) : (
+                    <span>
+                      <PlayArrow />
+                    </span>
+                  )}
                 </IconButton>
               </Box>
               <Box sx={{ color: "white" }}>
@@ -256,7 +225,7 @@ export default function Player(): ReactElement {
                     setScore(score + 1);
                     setVideoIndex(videoIndex + 1);
                   }
-                  resetVideo();
+                  handlePlayPause();
                 }}
                 sx={{ color: "white", backgroundColor: "#00FF00" }}
               >
