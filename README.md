@@ -1,4 +1,4 @@
-# FameFaked (-> FAMEFAKED)
+# FameFaked
 
 ## Overview
 FameFaked (-> FAMEFAKED) is an online game that aims to educate users on how to detect deep faked videos. Features of the gameplay include:
