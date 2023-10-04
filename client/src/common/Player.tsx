@@ -66,6 +66,12 @@ export default function Player(): ReactElement {
     setScore(0);
   }, [region]);
 
+  useEffect(() => {
+    if (videoIndex > 0) {
+      videoRef.current!.play();
+      setPlaystate("playing");
+    }
+  }, [videoIndex]);
   return (
     <>
       <Header score={score} region={region} setRegion={setRegion} />
