@@ -25,6 +25,7 @@ export default function EndModal({
 }: IEndModal): ReactElement {
   const [name, setName] = useState<string>("");
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   const resetGame = () => {
     setModalOpen(false);
@@ -33,20 +34,21 @@ export default function EndModal({
     setFameVideos(famevideos.sort(() => Math.random() - 0.5));
   };
 
-  useEffect(() => {
-    async function fetchScoreboard() {
-      const resp = await getScoreboard();
+  async function fetchScoreboard() {
+    const resp = await getScoreboard();
 
-      setLeaderboard(resp.payload);
-    }
+    setLeaderboard(resp.payload);
+  }
+
+  useEffect(() => {
     fetchScoreboard();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await insertScore(score, name);
-    setModalOpen(false);
-    resetGame();
+    await fetchScoreboard();
+    setSubmitted(true);
   };
 
   return (
@@ -88,31 +90,32 @@ export default function EndModal({
             >
               <div className="scoreContainer">
                 <h2>Score: {score}</h2>
-                {(leaderboard.length < 10 || score > leaderboard[9].score) && (
-                  <div className="formContainer">
-                    <form onSubmit={handleSubmit}>
-                      <input
-                        type="text"
-                        maxLength={3}
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Enter your name"
-                      />
-                      <Button
-                        variant="contained"
-                        sx={{
-                          color: "black",
-                          backgroundColor: "white",
-                          width: "50%",
-                          marginTop: "10px",
-                        }}
-                        type="submit"
-                      >
-                        Submit
-                      </Button>
-                    </form>
-                  </div>
-                )}
+                {!submitted &&
+                  (leaderboard.length < 10 || score > leaderboard[9].score) && (
+                    <div className="formContainer">
+                      <form onSubmit={handleSubmit}>
+                        <input
+                          type="text"
+                          maxLength={3}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Enter your name"
+                        />
+                        <Button
+                          variant="contained"
+                          sx={{
+                            color: "black",
+                            backgroundColor: "white",
+                            width: "50%",
+                            marginTop: "10px",
+                          }}
+                          type="submit"
+                        >
+                          Submit
+                        </Button>
+                      </form>
+                    </div>
+                  )}
               </div>
 
               <Leaderboard leaderboard={leaderboard} />
