@@ -1,58 +1,20 @@
-import { Box, Button, Container, IconButton, Modal } from "@mui/material";
-import {
-  PlayArrow,
-  Pause,
-  FastForward,
-  FastRewind,
-  VolumeOff,
-  VolumeUp,
-} from "@mui/icons-material";
 import React, { FC, ReactElement, useRef, useState, useEffect } from "react";
 import { getVideos, getVideosByRegion } from "../NetworkCalls";
 import { IFameVideo } from "./FameVideo";
 import EndModal from "../components/EndModal";
 import Header from "../components/Header";
+import { PlayArrow, Pause, FastForward, FastRewind } from "@mui/icons-material"; // Import icons
+import { Box, Button, Container } from "@mui/material";
 
 export default function Player(): ReactElement {
-  const [playstate, setPlaystate] = useState<"playing" | "paused">("paused");
   const [region, setRegion] = useState<string>("Global");
-  const [, setPosition] = useState<number>(0);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const [famevideos, setFameVideos] = useState<IFameVideo[]>([]);
   const [videoIndex, setVideoIndex] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
-
-  const handlePlayPause = () => {
-    if (playstate === "playing") {
-      videoRef.current?.pause();
-      setPlaystate("paused");
-    } else {
-      videoRef.current?.play();
-      setPlaystate("playing");
-    }
-  };
-
-  const handleTimeUpdate = () => {
-    setPosition(videoRef.current?.currentTime || 0);
-  };
-
-  const handleFastForward = () => {
-    videoRef.current!.currentTime += 5;
-    setPosition(videoRef.current?.currentTime || 0);
-  };
-
-  const handleFastRewind = () => {
-    videoRef.current!.currentTime -= 5;
-    setPosition(videoRef.current?.currentTime || 0);
-  };
-
-  const handleMute = () => {
-    setIsMuted(!isMuted);
-    videoRef.current!.muted = !isMuted;
-  };
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [scrubberValue, setScrubberValue] = useState<number>(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   async function fetchVideos() {
     const vid =
@@ -67,11 +29,57 @@ export default function Player(): ReactElement {
   }, [region]);
 
   useEffect(() => {
-    if (videoIndex > 0) {
-      videoRef.current!.play();
-      setPlaystate("playing");
+    if (isPlaying) {
+      videoRef.current?.play();
+    } else {
+      videoRef.current?.pause();
     }
-  }, [videoIndex]);
+  }, [isPlaying]);
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (video) {
+      const currentTime = video.currentTime;
+      const duration = video.duration;
+      if (!isNaN(duration)) {
+        const newValue = (currentTime / duration) * 100;
+        setScrubberValue(newValue);
+      }
+    }
+  };
+
+  const handleScrubberChange = (newValue: number) => {
+    const video = videoRef.current;
+    if (video) {
+      const duration = video.duration;
+      if (!isNaN(duration)) {
+        const newTime = (newValue / 100) * duration;
+        video.currentTime = newTime;
+        setScrubberValue(newValue);
+      }
+    }
+  };
+
+  const handleSkipForward = () => {
+    const video = videoRef.current;
+    if (video) {
+      const newTime = video.currentTime + 5;
+      video.currentTime = newTime;
+    }
+  };
+
+  const handleSkipBackward = () => {
+    const video = videoRef.current;
+    if (video) {
+      const newTime = video.currentTime - 5;
+      video.currentTime = newTime;
+    }
+  };
+
   return (
     <>
       <Header score={score} region={region} setRegion={setRegion} />
@@ -141,87 +149,89 @@ export default function Player(): ReactElement {
                 }}
               />
             </div>
-            <Container
-              sx={{
-                color: "white",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-              }}
+            <div
+              style={{ display: "flex", flexDirection: "row", width: "100%" }}
             >
               <Button
                 variant="contained"
                 onClick={() => {
                   if (famevideos[videoIndex]?.deepfaked) {
+                    setModalOpen(true);
+                  } else {
                     setScore(score + 1);
                     setVideoIndex(videoIndex + 1);
-                  } else {
-                    setModalOpen(true);
                   }
                   handlePlayPause();
                 }}
-                sx={{ color: "white", backgroundColor: "#FF0000" }}
+                sx={{
+                  color: "white",
+                  backgroundColor: "#FF0000",
+                  width: "20%",
+                }}
               >
                 Fake
               </Button>
 
-              <Box sx={{ color: "white" }}>
-                <IconButton
-                  sx={{ color: "white" }}
-                  ref={buttonRef}
-                  onClick={() => {
-                    handleFastRewind();
-                    buttonRef.current!.blur();
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "60%",
+                  padding: "0px 10px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <FastRewind />
-                </IconButton>
-              </Box>
-              <Box sx={{ color: "white" }}>
-                <IconButton
-                  sx={{ color: "white" }}
-                  ref={buttonRef}
-                  onClick={() => {
-                    handlePlayPause();
-                    buttonRef.current!.blur();
-                  }}
-                >
-                  {playstate === "playing" ? (
-                    <span>
-                      <Pause />
-                    </span>
-                  ) : (
-                    <span>
-                      <PlayArrow />
-                    </span>
-                  )}
-                </IconButton>
-              </Box>
-              <Box sx={{ color: "white" }}>
-                <IconButton
-                  sx={{ color: "white" }}
-                  ref={buttonRef}
-                  onClick={() => {
-                    handleFastForward();
-                    buttonRef.current!.blur();
-                  }}
-                >
-                  <FastForward />
-                </IconButton>
-              </Box>
-              <Box sx={{ color: "white" }}>
-                <IconButton
-                  sx={{ color: "white" }}
-                  ref={buttonRef}
-                  onClick={() => {
-                    handleMute();
-                    buttonRef.current!.blur();
-                  }}
-                >
-                  {isMuted ? <VolumeOff /> : <VolumeUp />}
-                </IconButton>
-              </Box>
+                  <Button
+                    variant="contained"
+                    onClick={handleSkipBackward}
+                    sx={{
+                      color: "white",
+                      width: "10%",
+                    }}
+                  >
+                    <FastRewind />
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={handlePlayPause}
+                    sx={{
+                      color: "white",
+                      width: "10%",
+                    }}
+                  >
+                    {isPlaying ? <Pause /> : <PlayArrow />}
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={handleSkipForward}
+                    sx={{
+                      color: "white",
+                      width: "10%",
+                    }}
+                  >
+                    <FastForward />
+                  </Button>
+                </div>
+                <div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={scrubberValue}
+                    onChange={(e) =>
+                      handleScrubberChange(Number(e.target.value))
+                    }
+                  />
+                </div>
+              </div>
               <Button
                 variant="contained"
                 onClick={() => {
@@ -233,11 +243,15 @@ export default function Player(): ReactElement {
                   }
                   handlePlayPause();
                 }}
-                sx={{ color: "white", backgroundColor: "#00FF00" }}
+                sx={{
+                  color: "white",
+                  backgroundColor: "#00FF00",
+                  width: "20%",
+                }}
               >
                 Real
               </Button>
-            </Container>
+            </div>
           </Container>
         </Box>
       </Box>
