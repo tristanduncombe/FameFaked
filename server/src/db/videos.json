@@ -94,11 +94,5 @@
     "deepfaked": false,
     "difficulty": 2,
     "region": ["Oceania"]
-  },
-  {
-    "videoLink": "https://ia601404.us.archive.org/8/items/pgbnkwa-8-gb-ncpup-e/PGbnkwa8GbNCPupE.mp4",
-    "deepfaked": false,
-    "difficulty": 2,
-    "region": ["North America"]
   }
 ]
