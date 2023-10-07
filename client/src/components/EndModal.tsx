@@ -58,8 +58,23 @@ export default function EndModal({
       }}
     >
       <Box className="modalContainer">
-        {" "}
-        {/* Apply the class name */}
+        <Button
+          onClick={() => {
+            setModalOpen(false);
+            resetGame();
+          }}
+          sx={{
+            color: "white",
+            width: "50px",
+            height: "50px",
+            position: "absolute",
+            right: "0",
+            top: "0",
+            fontSize: "20px",
+          }}
+        >
+          X
+        </Button>
         <Container
           maxWidth={false}
           sx={{
