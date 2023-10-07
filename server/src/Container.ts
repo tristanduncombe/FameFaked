@@ -2,10 +2,12 @@ import {
   IFameVideoComponent,
   FameVideoComponent,
 } from "./collections/FameVideo/FameVideoCollection";
+import { ScoreboardComponent } from "./collections/Scoreboard/ScoreBoardCollection";
 import { ConfigType } from "./config/config.schema";
 import { MongoClient } from "mongodb";
 export interface IContainer {
   fameVideoComponent: IFameVideoComponent;
+  scoreboardComponent: any;
 }
 
 const Container = async (config: ConfigType): Promise<IContainer> => {
@@ -17,8 +19,11 @@ const Container = async (config: ConfigType): Promise<IContainer> => {
 
   const fameVideoComponent = FameVideoComponent(db);
 
+  const scoreboardComponent = ScoreboardComponent(db);
+
   return {
     fameVideoComponent,
+    scoreboardComponent,
   };
 };
 

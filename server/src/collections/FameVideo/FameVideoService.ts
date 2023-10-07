@@ -19,13 +19,15 @@ export interface IFameVideoService {
   ): Promise<SuccessReturn<IFameVideo[]> | FailReturn>;
 }
 
-export default (UserRepository: IFameVideoRepository): IFameVideoService => {
+export default (
+  FameVideoRepository: IFameVideoRepository
+): IFameVideoService => {
   return {
-    getVideos: async () => await UserRepository.getVideos(),
+    getVideos: async () => await FameVideoRepository.getVideos(),
     insertVideo: async (videoLink, deepfaked) =>
-      await UserRepository.insertVideo(videoLink, deepfaked),
-    getRegions: async () => await UserRepository.getRegions(),
+      await FameVideoRepository.insertVideo(videoLink, deepfaked),
+    getRegions: async () => await FameVideoRepository.getRegions(),
     getVideosByRegion: async (region) =>
-      await UserRepository.getVideosByRegion(region),
+      await FameVideoRepository.getVideosByRegion(region),
   };
 };

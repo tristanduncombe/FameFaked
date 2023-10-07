@@ -1,6 +1,8 @@
 import { Box, Button, Container, Modal } from "@mui/material";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { IFameVideo } from "../common/FameVideo";
+import { getScoreboard, insertScore } from "../NetworkCalls";
+import Leaderboard from "./Leaderboard";
 
 interface IEndModal {
   modalOpen: boolean;
@@ -21,11 +23,30 @@ export default function EndModal({
   setScore,
   setFameVideos,
 }: IEndModal): ReactElement {
+  const [name, setName] = useState<string>("");
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+
   const resetGame = () => {
     setModalOpen(false);
     setVideoIndex(0);
     setScore(0);
     setFameVideos(famevideos.sort(() => Math.random() - 0.5));
+  };
+
+  useEffect(() => {
+    async function fetchScoreboard() {
+      const resp = await getScoreboard();
+
+      setLeaderboard(resp.payload);
+    }
+    fetchScoreboard();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await insertScore(score, name);
+    setModalOpen(false);
+    resetGame();
   };
 
   return (
@@ -36,45 +57,53 @@ export default function EndModal({
         resetGame();
       }}
     >
-      <Box
-        sx={{
-          backgroundColor: "#0D0C1E",
-          color: "white",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "50%",
-          height: "50%",
-          position: "absolute",
-          top: "25%",
-          left: "25%",
-          border: "white",
-          borderStyle: "solid",
-          borderWidth: "2px",
-          borderRadius: "10px",
-        }}
-      >
+      <Box className="modalContainer">
+        {" "}
+        {/* Apply the class name */}
         <Container
           maxWidth={false}
           sx={{
             width: "100%",
           }}
         >
-          <Box
-            sx={{
-              color: "white",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-              paddingBottom: "10px",
-            }}
-          >
+          <Box className="columnContainer">
             <h1>Game Over</h1>
-            <h2>Score: {score}</h2>
+            <div
+              style={{ display: "flex", flexDirection: "row", width: "100%" }}
+            >
+              <div className="scoreContainer">
+                <h2>Score: {score}</h2>
+                {(leaderboard.length < 10 || score > leaderboard[9].score) && (
+                  <div className="formContainer">
+                    <form onSubmit={handleSubmit}>
+                      <input
+                        type="text"
+                        maxLength={3}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Enter your name"
+                      />
+                      <Button
+                        variant="contained"
+                        sx={{
+                          color: "black",
+                          backgroundColor: "white",
+                          width: "50%",
+                          marginTop: "10px",
+                        }}
+                        type="submit"
+                      >
+                        Submit
+                      </Button>
+                    </form>
+                  </div>
+                )}
+              </div>
+
+              <Leaderboard leaderboard={leaderboard} />
+            </div>
+          </Box>
+          <div className="buttonContainer">
             <Button
               variant="contained"
               sx={{
@@ -87,7 +116,7 @@ export default function EndModal({
             >
               Play Again
             </Button>
-          </Box>
+          </div>
         </Container>
       </Box>
     </Modal>
