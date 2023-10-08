@@ -51,7 +51,7 @@ export default function EndModal({
     setSubmitted(true);
   };
 
-  return (
+  return leaderboard.length > 0 ? (
     <Modal
       open={modalOpen}
       onClose={() => {
@@ -81,22 +81,29 @@ export default function EndModal({
           maxWidth={false}
           sx={{
             width: "100%",
+            height: "100%",
+            paddingTop: "20px",
           }}
         >
           <Box className="columnContainer">
             <h1>Game Over</h1>
             <div
-              style={{ display: "flex", flexDirection: "row", width: "100%" }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                height: "90%",
+              }}
             >
               <div className="scoreContainer">
                 <h2>Score: {score}</h2>
                 {!submitted &&
                   (leaderboard.length < 10 || score > leaderboard[9].score) && (
-                    <div className="formContainer">
-                      <form onSubmit={handleSubmit}>
+                    <>
+                      <h2>Enter your name to submit your score!</h2>
+                      <form onSubmit={handleSubmit} className="formContainer">
                         <input
                           type="text"
-                          maxLength={3}
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Enter your name"
@@ -107,36 +114,28 @@ export default function EndModal({
                             color: "black",
                             backgroundColor: "white",
                             width: "50%",
-                            marginTop: "10px",
                           }}
                           type="submit"
                         >
                           Submit
                         </Button>
                       </form>
-                    </div>
+                    </>
                   )}
+                <div className="buttonContainer">
+                  <button className="button blue" onClick={resetGame}>
+                    <span>Play Again</span>
+                  </button>
+                </div>
               </div>
 
               <Leaderboard leaderboard={leaderboard} />
             </div>
           </Box>
-          <div className="buttonContainer">
-            <Button
-              variant="contained"
-              sx={{
-                color: "black",
-                backgroundColor: "white",
-                width: "50%",
-                marginTop: "10px",
-              }}
-              onClick={() => resetGame()}
-            >
-              Play Again
-            </Button>
-          </div>
         </Container>
       </Box>
     </Modal>
+  ) : (
+    <></>
   );
 }

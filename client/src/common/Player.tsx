@@ -40,6 +40,13 @@ export default function Player(): ReactElement {
     setIsPlaying(!isPlaying);
   };
 
+  useEffect(() => {
+    if (videoIndex > 0) {
+      setScrubberValue(0);
+      setIsPlaying(true);
+    }
+  }, [videoIndex]);
+
   const handleTimeUpdate = () => {
     const video = videoRef.current;
     if (video) {
@@ -152,25 +159,21 @@ export default function Player(): ReactElement {
             <div
               style={{ display: "flex", flexDirection: "row", width: "100%" }}
             >
-              <Button
-                variant="contained"
+              <button
+                className="button red"
                 onClick={() => {
                   if (famevideos[videoIndex]?.deepfaked) {
-                    setModalOpen(true);
-                  } else {
                     setScore(score + 1);
                     setVideoIndex(videoIndex + 1);
+                  } else {
+                    setModalOpen(true);
                   }
-                  handlePlayPause();
+                  setIsPlaying(false);
                 }}
-                sx={{
-                  color: "white",
-                  backgroundColor: "#FF0000",
-                  width: "20%",
-                }}
+                style={{ width: "20%" }}
               >
-                Fake
-              </Button>
+                <span>Fake</span>
+              </button>
 
               <div
                 style={{
@@ -225,6 +228,7 @@ export default function Player(): ReactElement {
                     type="range"
                     min="0"
                     max="100"
+                    className="slider"
                     value={scrubberValue}
                     onChange={(e) =>
                       handleScrubberChange(Number(e.target.value))
@@ -232,8 +236,8 @@ export default function Player(): ReactElement {
                   />
                 </div>
               </div>
-              <Button
-                variant="contained"
+              <button
+                className="button green"
                 onClick={() => {
                   if (famevideos[videoIndex]?.deepfaked) {
                     setModalOpen(true);
@@ -241,16 +245,12 @@ export default function Player(): ReactElement {
                     setScore(score + 1);
                     setVideoIndex(videoIndex + 1);
                   }
-                  handlePlayPause();
+                  setIsPlaying(false);
                 }}
-                sx={{
-                  color: "white",
-                  backgroundColor: "#00FF00",
-                  width: "20%",
-                }}
+                style={{ width: "20%" }}
               >
-                Real
-              </Button>
+                <span>Real</span>
+              </button>
             </div>
           </Container>
         </Box>
