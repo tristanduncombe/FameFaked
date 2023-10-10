@@ -2,7 +2,7 @@ import {
   IFameVideoComponent,
   FameVideoComponent,
 } from "./collections/FameVideo/FameVideoCollection";
-import { ScoreboardComponent } from "./collections/Scoreboard/ScoreBoardCollection";
+import { ScoreboardComponent } from "./collections/Scoreboard/ScoreboardCollection";
 import { ConfigType } from "./config/config.schema";
 import { MongoClient } from "mongodb";
 export interface IContainer {

@@ -151,13 +151,16 @@ export default function Player(): ReactElement {
                   left: 0,
                   width: "100%",
                   height: "100%",
-                  paddingTop: "20px",
-                  paddingBottom: "20px",
                 }}
               />
             </div>
             <div
-              style={{ display: "flex", flexDirection: "row", width: "100%" }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                paddingTop: "30px",
+              }}
             >
               <button
                 className="button red"
