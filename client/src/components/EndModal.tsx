@@ -51,7 +51,7 @@ export default function EndModal({
     setSubmitted(true);
   };
 
-  return leaderboard.length > 0 ? (
+  return (
     <Modal
       open={modalOpen}
       onClose={() => {
@@ -135,7 +135,5 @@ export default function EndModal({
         </Container>
       </Box>
     </Modal>
-  ) : (
-    <></>
   );
 }

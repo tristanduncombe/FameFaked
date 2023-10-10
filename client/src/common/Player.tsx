@@ -36,8 +36,7 @@ export default function Player(): ReactElement {
         const x = (event.clientX - rect.left) / rect.width;
         const y = (event.clientY - rect.top) / rect.height;
         setClickPosition({ x, y });
-        // You can set the zoom level based on your preference.
-        setZoomLevel(2); // Example: Zoom in 2x
+        setZoomLevel(2);
       }
     }
   };
