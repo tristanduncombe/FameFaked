@@ -14,7 +14,33 @@ export default function Player(): ReactElement {
   const [score, setScore] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [scrubberValue, setScrubberValue] = useState<number>(0);
+  const [sloMo, setSloMo] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
+  const [isZoomEnabled, setIsZoomEnabled] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
+
+  const toggleZoom = () => {
+    isZoomEnabled && setZoomLevel(1);
+    setIsZoomEnabled(!isZoomEnabled);
+  };
+
+  const handleVideoClick = (event: { clientX: number; clientY: number }) => {
+    if (zoomLevel > 1) {
+      setIsZoomEnabled(false);
+      setZoomLevel(1);
+    } else if (isZoomEnabled) {
+      const video = videoRef.current;
+      if (video) {
+        const rect = video.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        setClickPosition({ x, y });
+        // You can set the zoom level based on your preference.
+        setZoomLevel(2); // Example: Zoom in 2x
+      }
+    }
+  };
 
   async function fetchVideos() {
     const vid =
@@ -56,6 +82,14 @@ export default function Player(): ReactElement {
         const newValue = (currentTime / duration) * 100;
         setScrubberValue(newValue);
       }
+    }
+  };
+
+  const handleSloMo = () => {
+    const video = videoRef.current;
+    if (video) {
+      sloMo ? (video.playbackRate = 1) : (video.playbackRate = 0.5);
+      setSloMo(!sloMo);
     }
   };
 
@@ -112,6 +146,27 @@ export default function Player(): ReactElement {
             setFameVideos={setFameVideos}
           />
         )}
+        <div
+          style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            width: "20%",
+            paddingTop: "30px",
+            right: "20px",
+            top: "150px",
+            zIndex: 1,
+            gap: "10px",
+          }}
+        >
+          <button className="button" onClick={() => handleSloMo()}>
+            <span>Slow Motion</span>
+          </button>
+
+          <button className="button" onClick={toggleZoom}>
+            <span>{isZoomEnabled ? "Disable Zoom" : "Zoom In"}</span>
+          </button>
+        </div>
         <Box
           sx={{
             backgroundColor: "#0D0C1E",
@@ -137,6 +192,7 @@ export default function Player(): ReactElement {
                 position: "relative",
                 width: "100%",
                 height: "80%",
+                overflow: isZoomEnabled ? "hidden" : "visible", // Apply overflow hidden when zoom is enabled
               }}
             >
               <video
@@ -144,14 +200,19 @@ export default function Player(): ReactElement {
                 src={famevideos[videoIndex]?.videoLink}
                 width="100%"
                 height="100%"
-                onTimeUpdate={handleTimeUpdate}
                 style={{
                   position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
+                  top: isZoomEnabled
+                    ? `${-clickPosition.y * 100 * (zoomLevel - 1)}%`
+                    : "0",
+                  left: isZoomEnabled
+                    ? `${-clickPosition.x * 100 * (zoomLevel - 1)}%`
+                    : "0",
+                  width: `${100 * zoomLevel}%`,
+                  height: `${100 * zoomLevel}%`,
+                  transformOrigin: "center",
                 }}
+                onClick={handleVideoClick}
               />
             </div>
             <div
