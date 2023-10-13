@@ -18,27 +18,9 @@
     "region": ["North America", "Russia"]
   },
   {
-    "videoLink": "https://ia802501.us.archive.org/6/items/twitter-1520825380793470977/1520825380793470977.mp4",
-    "deepfaked": false,
-    "difficulty": 2,
-    "region": ["North America"]
-  },
-  {
     "videoLink": "https://ia903002.us.archive.org/1/items/Instagram-ByaVigGFP2U/Video_by_bill_posters_uk-ByaVigGFP2U.mp4",
     "deepfaked": true,
     "difficulty": 4,
-    "region": ["North America"]
-  },
-  {
-    "videoLink": "https://ia902500.us.archive.org/13/items/youtube-AM74s8HzNxU/AM74s8HzNxU.mp4",
-    "deepfaked": false,
-    "difficulty": 2,
-    "region": ["North America"]
-  },
-  {
-    "videoLink": "https://ia600501.us.archive.org/0/items/home-stallone-deep-fake/Home%20Stallone%20%5BDeepFake%5D.mp4",
-    "deepfaked": true,
-    "difficulty": 2,
     "region": ["North America"]
   },
   {
