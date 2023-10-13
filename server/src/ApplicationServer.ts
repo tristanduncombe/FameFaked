@@ -16,7 +16,7 @@ const ApplicationServer = (config: ConfigType, container: IContainer) => {
     app,
     start: () => {
       return app.listen(config.PORT, () => {
-        console.log(`Server started on port ${config.PORT}`); // eslint-disable-line no-console
+        console.log(`Server started on port ${config.PORT}`);
       });
     },
   };
@@ -28,7 +28,7 @@ const expressApp = (config: ConfigType) => {
   app.use(
     cors({
       credentials: true,
-      origin: [config.CLIENT_ORIGIN],
+      origin: [config.CLIENT_ORIGIN, "https://deco3801-htmlheroes.uqcloud.net"],
     })
   );
 

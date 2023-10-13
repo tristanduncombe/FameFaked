@@ -7,13 +7,10 @@
     "watch": "nodemon",
     "build": "tsc",
     "pretty": "prettier --write ./src",
-    "lint": "eslint src/ --ext .ts",
-    "test": "jest",
     "seed": "ts-node src/db/seed.ts",
     "docker:seed": "docker-compose exec server npm run seed"
   },
   "dependencies": {
-    "@types/jest": "^29.5.3",
     "@types/nodemailer": "^6.4.9",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -21,8 +18,7 @@
     "express": "^4.18.2",
     "joi": "^17.9.2",
     "mongodb": "^4.6.0",
-    "nodemon": "^2.0.20",
-    "ts-jest": "^29.1.0"
+    "nodemon": "^2.0.20"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
