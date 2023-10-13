@@ -263,6 +263,7 @@ export default function Player(): ReactElement {
                                 src={famevideos[videoIndex]?.videoLink}
                                 width="100%"
                                 height="100%"
+                                onTimeUpdate={handleTimeUpdate}
                                 style={{
                                     position: "absolute",
                                     top: isZoomEnabled
