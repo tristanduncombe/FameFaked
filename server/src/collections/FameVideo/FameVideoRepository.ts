@@ -46,6 +46,8 @@ export default (FameVideoCollection: Collection): IFameVideoRepository => {
     getRegions: async () => {
       const regions = await FameVideoCollection.distinct("region");
 
+      regions.push("Global");
+
       if (!regions) return failure("No regions found");
 
       return success(regions);
