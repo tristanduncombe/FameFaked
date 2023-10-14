@@ -10,11 +10,11 @@ import {
     Container,
     Divider,
     IconButton,
+    Paper,
     Tooltip,
     Typography,
 } from "@mui/material";
-import ZoomInIcon from "@mui/icons-material/ZoomIn";
-import ZoomOutIcon from "@mui/icons-material/ZoomOut";
+import SearchIcon from "@mui/icons-material/Search";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 
 export default function Player(): ReactElement {
@@ -158,77 +158,80 @@ export default function Player(): ReactElement {
                         setFameVideos={setFameVideos}
                     />
                 )}
-                <Box sx={{ color: "white" }}>
-                    <Typography variant="h6">Tools</Typography>
-
-                    <Divider light />
-
-                    <Box sx={{ display: "flex" }}>
-                        <div>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    width: "fit-content",
-                                    border: (theme) => `1px solid white`,
-                                    borderRadius: 1,
-                                    color: "white",
-                                    "& svg": {
-                                        m: 1.5,
-                                    },
-                                    "& hr": {
-                                        mx: 0.5,
-                                    },
-                                }}
+                <Box
+                    sx={{
+                        position: "absolute",
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "20%",
+                        paddingTop: "10%",
+                        right: "20px",
+                        top: "150px",
+                        zIndex: 1,
+                        gap: "10px",
+                    }}
+                >
+                    <Box
+                        sx={{
+                            backgroundColor: "#0D0C1E",
+                            position: "absolute",
+                            bottom: 0,
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                width: "fit-content",
+                                color: "white",
+                                "& svg": {
+                                    m: 1.5,
+                                },
+                                "& hr": {
+                                    mx: 0.5,
+                                },
+                                display: "flex",
+                                flexDirection: "column",
+                            }}
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{ marginBlock: "auto" }}
                             >
-                                <Box
-                                    sx={{
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <IconButton
-                                        sx={{ color: "white" }}
-                                        onClick={() => handleSloMo()}
-                                    >
-                                        <Tooltip title="Toggle Slowmotion">
-                                            <SlowMotionVideoIcon />
-                                        </Tooltip>
-                                    </IconButton>
+                                Tools
+                            </Typography>
+                            <IconButton
+                                sx={{ color: "white" }}
+                                onClick={() => handleSloMo()}
+                            >
+                                <Tooltip title="Toggle Slowmotion">
+                                    <SlowMotionVideoIcon />
+                                </Tooltip>
+                            </IconButton>
 
-                                    <IconButton
-                                        onClick={toggleZoom}
-                                        sx={{ color: "white" }}
-                                    >
-                                        {isZoomEnabled ? (
-                                            <Tooltip title="Zoom Out">
-                                                <ZoomOutIcon />
-                                            </Tooltip>
-                                        ) : (
-                                            <Tooltip title="Zoom In">
-                                                <ZoomInIcon />
-                                            </Tooltip>
-                                        )}
-                                    </IconButton>
-                                </Box>
+                            <IconButton
+                                onClick={toggleZoom}
+                                sx={{ color: "white" }}
+                            >
+                                <Tooltip title="Magnify">
+                                    <SearchIcon />
+                                </Tooltip>
+                            </IconButton>
 
-                                <Divider
-                                    orientation="vertical"
-                                    variant="middle"
-                                    flexItem
-                                    sx={{ bgcolor: "white" }}
-                                />
-                                {/* this side is like convultion layer */}
-                                <IconButton
-                                    sx={{ color: "white" }}
-                                    onClick={() => handleSloMo()}
-                                >
-                                    <Tooltip title="Toggle Slowmotion">
-                                        <SlowMotionVideoIcon />
-                                    </Tooltip>
-                                </IconButton>
-                            </Box>
-                        </div>
+                            <Divider
+                                variant="middle"
+                                flexItem
+                                sx={{ bgcolor: "white" }}
+                            />
+                            {/* this side is like convultion layer */}
+                            <IconButton
+                                sx={{ color: "white" }}
+                                onClick={() => handleSloMo()}
+                            >
+                                <Tooltip title="Toggle Slowmotion">
+                                    <SlowMotionVideoIcon />
+                                </Tooltip>
+                            </IconButton>
+                        </Box>
                     </Box>
-                    <Divider />
                 </Box>
                 <Box
                     sx={{
