@@ -394,7 +394,7 @@ function App() {
                             sx={{
                                 position: "absolute",
                                 top: "20%",
-                                right: 2,
+                                right: "15%",
                             }}
                         >
                             <Toolbar
