@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import {
+    AppBar,
     Button,
     Container,
     Divider,
@@ -32,123 +33,57 @@ function Header({ score, region, setRegion }: HeaderProps): ReactElement {
     }, []);
 
     return (
-        <Box
-            sx={{
-                backgroundColor: "primary.main",
-                height: "20%",
-                paddingTop: "20px",
-            }}
-        >
-            <Container>
-                <Toolbar disableGutters>
-                    <Grid sx={{ justifyContent: "flex-start" }}>
-                        <Typography
-                            variant="h5"
-                            component="div"
-                            sx={{
-                                flexGrow: 2,
-                                fontStyle: "italic",
-                                fontWeight: 800,
-                                color: "white",
-                                fontSize: "3.5rem",
-                            }}
-                        >
-                            FAMEFAKED
-                        </Typography>
-
-                        <Typography
-                            variant="caption"
-                            component="div"
-                            sx={{
-                                color: "white",
-                                fontStyle: "italic",
-                                fontSize: "1.5rem",
-                            }}
-                        >
-                            HTML Heroes
-                        </Typography>
-                    </Grid>
-
-                    <Divider
-                        orientation="vertical"
-                        flexItem
-                        sx={{
-                            backgroundColor: "white",
-                            width: "2px",
-                            margin: "20px 40px",
-                        }}
-                    />
-
-                    <Container
-                        maxWidth={false}
-                        sx={{
-                            width: "100%",
-                        }}
+        <AppBar sx={{ backgroundColor: "grey" }}>
+            <Toolbar disableGutters sx={{ width: "65vw", margin: "auto" }}>
+                <Box>
+                    <Typography
+                        variant="h5"
+                        fontFamily={"Segoe UI"}
+                        fontWeight={"600"}
                     >
-                        <Box
-                            sx={{
-                                color: "white",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                width: "100%",
-                                height: "100%",
-                            }}
-                        >
-                            <h1>Score: {score}</h1>
-                        </Box>
-                    </Container>
-                    <Divider
-                        orientation="vertical"
-                        flexItem
-                        sx={{
-                            backgroundColor: "white",
-                            width: "2px",
-                            margin: "20px 40px",
-                        }}
-                    />
-
-                    <Grid
-                        container
-                        direction="row"
-                        gap={2}
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            color: "white",
-                        }}
-                    >
-                        <PopupState variant="popover" popupId="demo-popup-menu">
-                            {(popupState) => (
-                                <React.Fragment>
-                                    <Button
-                                        variant="contained"
-                                        {...bindTrigger(popupState)}
+                        FAMEFAKED
+                    </Typography>
+                    <Typography variant="caption" fontStyle={"italic"}>
+                        a HTML Heroes game
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{
+                        margin: "auto",
+                    }}
+                >
+                    <Typography variant={"h5"}>Score: {score}</Typography>
+                </Box>
+                <PopupState variant="popover" popupId="demo-popup-menu">
+                    {(popupState) => (
+                        <React.Fragment>
+                            <Button
+                                variant="contained"
+                                sx={{ color: "white" }}
+                                {...bindTrigger(popupState)}
+                            >
+                                Region: {region}
+                            </Button>
+                            <Menu {...bindMenu(popupState)}>
+                                {regionList.map((region) => (
+                                    <MenuItem
+                                        id={region}
+                                        onClick={() => {
+                                            setRegion(region);
+                                            setLanguageModal(false);
+                                            popupState.close;
+                                        }}
+                                        sx={{ color: "#11141c" }}
                                     >
-                                        Region: {region}
-                                    </Button>
-                                    <Menu {...bindMenu(popupState)}>
-                                        {regionList.map((region) => (
-                                            <MenuItem
-                                                id={region}
-                                                onClick={() => {
-                                                    setRegion(region);
-                                                    setLanguageModal(false);
-                                                    popupState.close;
-                                                }}
-                                                sx={{ color: "Black" }}
-                                            >
-                                                {region}
-                                            </MenuItem>
-                                        ))}
-                                    </Menu>
-                                </React.Fragment>
-                            )}
-                        </PopupState>
-                    </Grid>
-                </Toolbar>
-            </Container>
-        </Box>
+                                        {region}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </React.Fragment>
+                    )}
+                </PopupState>
+            </Toolbar>
+        </AppBar>
     );
 }
 
