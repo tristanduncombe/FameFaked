@@ -25,7 +25,7 @@ export default function Toolbar({ handleSloMo, toggleZoom }: toolbarProps) {
                 backgroundColor: "#0D0C1E",
             }}
         >
-            <Typography variant="h6" sx={{ marginBlock: "auto" }}>
+            <Typography variant="h6" sx={{ textAlign: "center" }}>
                 Tools
             </Typography>
             <IconButton sx={{ color: "white" }} onClick={() => handleSloMo()}>
