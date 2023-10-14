@@ -49,6 +49,7 @@ function App() {
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const [isZoomEnabled, setIsZoomEnabled] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [timerDone, setTimerDone] = useState(false);
 
   const toggleZoom = () => {
     isZoomEnabled && setZoomLevel(1);
@@ -96,6 +97,12 @@ function App() {
   };
 
   useEffect(() => {
+    setTimerDone(false);
+    setTimeout(() => {
+      console.log("hi");
+      setTimerDone(true);
+    }, 5000);
+
     if (videoIndex > 0) {
       setScrubberValue(0);
       setIsPlaying(true);
@@ -221,6 +228,7 @@ function App() {
                   zoomLevel={zoomLevel}
                   handleVideoClick={handleVideoClick}
                   handlePlayPause={handlePlayPause}
+                  timerDone={timerDone}
                 />
               </Box>
             </Box>

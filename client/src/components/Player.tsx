@@ -26,6 +26,7 @@ interface PlayerProps {
   setScrubberValue: React.Dispatch<React.SetStateAction<number>>;
   modalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  timerDone: boolean;
   handleSkipBackward: () => void;
   handleSkipForward: () => void;
   handleScrubberChange: (value: number) => void;
@@ -45,6 +46,7 @@ export default function Player({
   handleTimeUpdate,
   setModalOpen,
   handleSkipBackward,
+  timerDone,
   handleSkipForward,
   handleScrubberChange,
   clickPosition,
@@ -105,6 +107,7 @@ export default function Player({
             setIsPlaying(false);
           }}
           style={{ width: "10%" }}
+          disabled={!timerDone}
         >
           <span>Fake</span>
         </button>
@@ -180,6 +183,7 @@ export default function Player({
             setIsPlaying(false);
           }}
           style={{ width: "10%" }}
+          disabled={!timerDone}
         >
           <span>Real</span>
         </button>
