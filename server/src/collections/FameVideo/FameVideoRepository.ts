@@ -57,6 +57,9 @@ export default (FameVideoCollection: Collection): IFameVideoRepository => {
         region,
       }).toArray();
 
+      // randomize the video order
+      FameVideos.sort(() => Math.random() - 0.5);
+
       if (!FameVideos) return failure("No videos found");
 
       return success(FameVideos);
