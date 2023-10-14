@@ -73,13 +73,15 @@ export default function Player({
                         style={{
                             position: "relative",
                             width: "100%",
-                            height: "100%",
+                            height: "80%",
                             overflow: isZoomEnabled ? "hidden" : "visible", // Apply overflow hidden when zoom is enabled
                         }}
                     >
                         <video
                             ref={videoRef}
                             src={famevideos[videoIndex]?.videoLink}
+                            width="100%"
+                            height="80%"
                             onTimeUpdate={handleTimeUpdate}
                             style={{
                                 position: "absolute",
