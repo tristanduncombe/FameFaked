@@ -18,6 +18,7 @@ import {
     Typography,
 } from "@mui/material";
 import Toolbar from "./components/Toolbar";
+import { click } from "@testing-library/user-event/dist/click";
 
 function App() {
     const theme = createTheme({
@@ -206,188 +207,28 @@ function App() {
                                     setFameVideos={setFameVideos}
                                 />
                             )}
-                            <Box
-                                sx={{
-                                    backgroundColor: "#0D0C1E",
-                                    color: "white",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    width: "80%",
-                                    height: "100%",
-                                    position: "relative",
-                                }}
-                            >
-                                <Container
-                                    maxWidth={false}
-                                    sx={{
-                                        width: "100%",
-                                        height: "100%",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            position: "relative",
-                                            width: "100%",
-                                            height: "80%",
-                                            overflow: isZoomEnabled
-                                                ? "hidden"
-                                                : "visible", // Apply overflow hidden when zoom is enabled
-                                        }}
-                                    >
-                                        <video
-                                            ref={videoRef}
-                                            src={
-                                                famevideos[videoIndex]
-                                                    ?.videoLink
-                                            }
-                                            width="100%"
-                                            height="100%"
-                                            onTimeUpdate={handleTimeUpdate}
-                                            style={{
-                                                position: "absolute",
-                                                top: isZoomEnabled
-                                                    ? `${
-                                                          -clickPosition.y *
-                                                          100 *
-                                                          (zoomLevel - 1)
-                                                      }%`
-                                                    : "0",
-                                                left: isZoomEnabled
-                                                    ? `${
-                                                          -clickPosition.x *
-                                                          100 *
-                                                          (zoomLevel - 1)
-                                                      }%`
-                                                    : "0",
-                                                width: `${100 * zoomLevel}%`,
-                                                height: `${100 * zoomLevel}%`,
-                                                transformOrigin: "center",
-                                            }}
-                                            onClick={handleVideoClick}
-                                        />
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            width: "100%",
-                                            paddingTop: "30px",
-                                        }}
-                                    >
-                                        <button
-                                            className="button red"
-                                            onClick={() => {
-                                                if (
-                                                    famevideos[videoIndex]
-                                                        ?.deepfaked
-                                                ) {
-                                                    setScore(score + 1);
-                                                    setVideoIndex(
-                                                        videoIndex + 1
-                                                    );
-                                                } else {
-                                                    setModalOpen(true);
-                                                }
-                                                setIsPlaying(false);
-                                            }}
-                                            style={{ width: "20%" }}
-                                        >
-                                            <span>Fake</span>
-                                        </button>
-
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                width: "60%",
-                                                padding: "0px 10px",
-                                            }}
-                                        >
-                                            <div
-                                                style={{
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    width: "100%",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                }}
-                                            >
-                                                <Button
-                                                    variant="contained"
-                                                    onClick={handleSkipBackward}
-                                                    sx={{
-                                                        color: "white",
-                                                        width: "10%",
-                                                    }}
-                                                >
-                                                    <FastRewind />
-                                                </Button>
-                                                <Button
-                                                    variant="contained"
-                                                    onClick={handlePlayPause}
-                                                    sx={{
-                                                        color: "white",
-                                                        width: "10%",
-                                                    }}
-                                                >
-                                                    {isPlaying ? (
-                                                        <Pause />
-                                                    ) : (
-                                                        <PlayArrow />
-                                                    )}
-                                                </Button>
-                                                <Button
-                                                    variant="contained"
-                                                    onClick={handleSkipForward}
-                                                    sx={{
-                                                        color: "white",
-                                                        width: "10%",
-                                                    }}
-                                                >
-                                                    <FastForward />
-                                                </Button>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="range"
-                                                    min="0"
-                                                    max="100"
-                                                    className="slider"
-                                                    value={scrubberValue}
-                                                    onChange={(e) =>
-                                                        handleScrubberChange(
-                                                            Number(
-                                                                e.target.value
-                                                            )
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                        <button
-                                            className="button green"
-                                            onClick={() => {
-                                                if (
-                                                    famevideos[videoIndex]
-                                                        ?.deepfaked
-                                                ) {
-                                                    setModalOpen(true);
-                                                } else {
-                                                    setScore(score + 1);
-                                                    setVideoIndex(
-                                                        videoIndex + 1
-                                                    );
-                                                }
-                                                setIsPlaying(false);
-                                            }}
-                                            style={{ width: "20%" }}
-                                        >
-                                            <span>Real</span>
-                                        </button>
-                                    </div>
-                                </Container>
+                            <Box sx={{ marginBlock: "auto", width: "80vw" }}>
+                                <Player
+                                    famevideos={famevideos}
+                                    score={score}
+                                    setScore={setScore}
+                                    videoIndex={videoIndex}
+                                    setVideoIndex={setVideoIndex}
+                                    isPlaying={isPlaying}
+                                    setIsPlaying={setIsPlaying}
+                                    scrubberValue={scrubberValue}
+                                    videoRef={videoRef}
+                                    isZoomEnabled={isZoomEnabled}
+                                    handleTimeUpdate={handleTimeUpdate}
+                                    setModalOpen={setModalOpen}
+                                    handleSkipBackward={handleSkipBackward}
+                                    handleSkipForward={handleSkipForward}
+                                    handleScrubberChange={handleScrubberChange}
+                                    clickPosition={click}
+                                    zoomLevel={zoomLevel}
+                                    handleVideoClick={handleVideoClick}
+                                    handlePlayPause={handlePlayPause}
+                                />
                             </Box>
                         </Box>
                         <Box
