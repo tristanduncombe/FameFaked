@@ -18,7 +18,6 @@ import {
   Typography,
 } from "@mui/material";
 import Toolbar from "./components/Toolbar";
-import { click } from "@testing-library/user-event/dist/click";
 
 function App() {
   const theme = createTheme({
@@ -218,7 +217,7 @@ function App() {
                   handleSkipBackward={handleSkipBackward}
                   handleSkipForward={handleSkipForward}
                   handleScrubberChange={handleScrubberChange}
-                  clickPosition={click}
+                  clickPosition={clickPosition}
                   zoomLevel={zoomLevel}
                   handleVideoClick={handleVideoClick}
                   handlePlayPause={handlePlayPause}
