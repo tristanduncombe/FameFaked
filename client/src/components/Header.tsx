@@ -33,7 +33,7 @@ function Header({ score, region, setRegion }: HeaderProps): ReactElement {
     }, []);
 
     return (
-        <AppBar sx={{ backgroundColor: "grey" }}>
+        <AppBar sx={{ backgroundColor: "grey" }} position="sticky">
             <Toolbar disableGutters sx={{ width: "65vw", margin: "auto" }}>
                 <Box>
                     <Typography
