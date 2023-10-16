@@ -48,7 +48,7 @@ export default function Toolbar({ handleSloMo, toggleZoom }: toolbarProps) {
                         display: "flex",
                         flexDirection: "column",
                         width: "fit-content",
-                        color: "white",
+                        color: "black",
                         "& svg": {
                             m: 1.5,
                         },
@@ -57,14 +57,14 @@ export default function Toolbar({ handleSloMo, toggleZoom }: toolbarProps) {
                         },
                         transform: isCollapsed ? "translateX(-100%)" : "",
                         transition: "transform 0.3s ease-in-out",
-                        backgroundColor: "#0D0C1E",
+                        backgroundColor: "#919191",
                     }}
                 >
                     <Typography variant="h6" sx={{ textAlign: "center" }}>
                         Tools
                     </Typography>
                     <IconButton
-                        sx={{ color: "white" }}
+                        sx={{ color: "black" }}
                         onClick={() => handleSloMo()}
                     >
                         <Tooltip title="Toggle Slowmotion">
@@ -72,7 +72,7 @@ export default function Toolbar({ handleSloMo, toggleZoom }: toolbarProps) {
                         </Tooltip>
                     </IconButton>
 
-                    <IconButton onClick={toggleZoom} sx={{ color: "white" }}>
+                    <IconButton onClick={toggleZoom} sx={{ color: "black" }}>
                         <Tooltip title="Magnify">
                             <SearchIcon />
                         </Tooltip>
@@ -81,11 +81,11 @@ export default function Toolbar({ handleSloMo, toggleZoom }: toolbarProps) {
                     <Divider
                         variant="middle"
                         flexItem
-                        sx={{ bgcolor: "white" }}
+                        sx={{ bgcolor: "black" }}
                     />
                     {/* this side is like convultion layer */}
                     <IconButton
-                        sx={{ color: "white" }}
+                        sx={{ color: "black" }}
                         onClick={() => handleSloMo()}
                     >
                         <Tooltip title="Toggle Slowmotion">

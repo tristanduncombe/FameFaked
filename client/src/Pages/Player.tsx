@@ -18,6 +18,7 @@ import {
     Typography,
 } from "@mui/material";
 import Toolbar from "../components/Toolbar";
+import { Link } from "react-router-dom";
 
 function App() {
     const theme = createTheme({
@@ -265,7 +266,7 @@ function App() {
                                 color: "white",
                             }}
                         >
-                            <Typography variant="h4">Score: {score}</Typography>
+                            <Typography variant="h5">Score: {score}</Typography>
                         </Box>
                         <Box
                             sx={{
@@ -274,12 +275,17 @@ function App() {
                                 left: "0%",
                             }}
                         >
-                            <img
-                                src="./FameFaked.png"
-                                width="20%"
-                                style={{ marginTop: "1%", marginLeft: "1%" }}
-                                draggable="false"
-                            />
+                            <Link to={"/"}>
+                                <img
+                                    src="./FameFaked.png"
+                                    width="10%"
+                                    style={{
+                                        marginTop: "1%",
+                                        marginLeft: "1%",
+                                    }}
+                                    draggable="false"
+                                />
+                            </Link>
                         </Box>
                     </Box>
                 </Box>
