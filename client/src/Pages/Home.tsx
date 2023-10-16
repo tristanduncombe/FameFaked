@@ -29,7 +29,7 @@ export default function HomePage(): ReactElement {
                 Is that celebrity Deepfaked?
             </Typography>
             <Typography sx={{ color: "white" }}>
-                A game about detecing whether a Celebrity Video is Deepfaked or
+                A game about detecting whether a Celebrity Video is Deepfaked or
                 not.
             </Typography>
             <Typography sx={{ color: "white", mb: 5 }}>
@@ -47,6 +47,25 @@ export default function HomePage(): ReactElement {
             </Button>
             <Typography sx={{ color: "white", mb: 5 }}>
                 Looking for help? Take a look at our guide!
+            </Typography>
+            <Typography
+                sx={{
+                    color: "white",
+                    fontSize: "14px",
+                    position: "absolute",
+                    bottom: "10px",
+                    left: "10px",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    "&:hover": {
+                        textDecoration: "underline",
+                    },
+                }}
+                onClick={() =>
+                    window.open("https://github.com/J-Bausch/FameFaked")
+                }
+            >
+                Github
             </Typography>
             <Typography
                 sx={{

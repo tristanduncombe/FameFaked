@@ -166,7 +166,7 @@ function App() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
-                    height: "100vh",
+                    height: "100%",
                 }}
             >
                 <CssBaseline />
@@ -176,24 +176,24 @@ function App() {
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "flex-start",
-                        height: "100vh",
+                        height: "100%",
                     }}
                 >
                     <Box
                         sx={{
                             width: "100%",
                             border: "none",
-                            height: "100vh",
+                            height: "100%",
                         }}
                     >
-                        <Header
+                        {/* <Header
                             score={score}
                             region={region}
                             setRegion={setRegion}
-                        />
+                        /> */}
                         <Box
                             sx={{
-                                backgroundColor: "grey",
+                                backgroundColor: "#121212",
                                 width: "100%",
                                 height: "80%",
                                 display: "flex",
@@ -217,8 +217,8 @@ function App() {
                                 sx={{
                                     marginBlock: "auto",
                                     width: "80vw",
-                                    height: "80vh",
-                                    backgroundColor: "#11141c",
+                                    height: "100vh",
+                                    backgroundColor: "#121212",
                                 }}
                             >
                                 <Player
@@ -255,6 +255,30 @@ function App() {
                             <Toolbar
                                 handleSloMo={handleSloMo}
                                 toggleZoom={toggleZoom}
+                            />
+                        </Box>
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                bottom: "0%",
+                                left: "0%",
+                                color: "white",
+                            }}
+                        >
+                            <Typography variant="h4">Score: {score}</Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                top: "0%",
+                                left: "0%",
+                            }}
+                        >
+                            <img
+                                src="./FameFaked.png"
+                                width="20%"
+                                style={{ marginTop: "1%", marginLeft: "1%" }}
+                                draggable="false"
                             />
                         </Box>
                     </Box>
