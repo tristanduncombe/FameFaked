@@ -36,7 +36,9 @@ export default function Toolbar({ handleSloMo, toggleZoom }: toolbarProps) {
                     color: "white",
                 }}
             >
-                <Tooltip title={isCollapsed ? "Expand" : "Collapse"}>
+                <Tooltip
+                    title={isCollapsed ? "Expand Toolbar" : "Collapse Toolbar"}
+                >
                     {isCollapsed ? <ChevronLeft /> : <ChevronRight />}
                 </Tooltip>
             </IconButton>
