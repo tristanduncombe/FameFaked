@@ -12,12 +12,14 @@ export default function HomePage(): ReactElement {
                 alignItems: "center",
                 height: "100vh",
                 backgroundColor: "#121212",
+                position: "relative",
             }}
         >
             <img
                 src="./FameFaked.png"
                 width="20%"
                 style={{ marginTop: "5%", marginBottom: "5%" }}
+                draggable="false"
             />
             <Typography
                 variant="h5"
