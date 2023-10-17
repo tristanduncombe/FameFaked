@@ -54,34 +54,6 @@ function Header({ score, region, setRegion }: HeaderProps): ReactElement {
                 >
                     <Typography variant={"h5"}>Score: {score}</Typography>
                 </Box>
-                <PopupState variant="popover" popupId="demo-popup-menu">
-                    {(popupState) => (
-                        <React.Fragment>
-                            <Button
-                                variant="contained"
-                                sx={{ color: "white" }}
-                                {...bindTrigger(popupState)}
-                            >
-                                Region: {region}
-                            </Button>
-                            <Menu {...bindMenu(popupState)}>
-                                {regionList.map((region) => (
-                                    <MenuItem
-                                        id={region}
-                                        onClick={() => {
-                                            setRegion(region);
-                                            setLanguageModal(false);
-                                            popupState.close;
-                                        }}
-                                        sx={{ color: "#11141c" }}
-                                    >
-                                        {region}
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </React.Fragment>
-                    )}
-                </PopupState>
             </Toolbar>
         </AppBar>
     );
