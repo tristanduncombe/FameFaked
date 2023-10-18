@@ -7,6 +7,12 @@ import { IFameVideo } from "../collections/FameVideo/FameVideo";
 import videos from "./videos.json";
 import config from "../../config.json";
 
+/**
+ * Seeds the database with a collection of FameVideo docs.
+ *
+ * @param {ConfigType} config - The configuration settings for connecting to the database.
+ * @returns {Promise<void>} - A Promise that resolves once the seeding process is completed.
+ */
 const seed = async (config: ConfigType) => {
   const client = new MongoClient(config.DATABASE_URL);
 
