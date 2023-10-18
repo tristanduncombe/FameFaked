@@ -10,6 +10,12 @@ export interface IContainer {
   scoreboardComponent: any;
 }
 
+/**
+ * Asynchronously creates a dependency injection container.
+ *
+ * @param {ConfigType} config - The configuration settings for the container and its components.
+ * @returns {Promise<IContainer>} - Resolves to the dependency injection container containing initialized components.
+ */
 const Container = async (config: ConfigType): Promise<IContainer> => {
   const client = new MongoClient(config.DATABASE_URL);
 
