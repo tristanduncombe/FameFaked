@@ -19,23 +19,6 @@ import PublicIcon from "@mui/icons-material/Public";
 import { Public } from "@mui/icons-material";
 
 function App() {
-    const theme = createTheme({
-        palette: {
-            primary: {
-                light: "#e3f2fd",
-                main: "#11141c",
-                dark: "#005db0",
-                contrastText: "#fffff",
-            },
-            secondary: {
-                light: "#ce93d8",
-                main: "#11141c",
-                dark: "#00867d",
-                contrastText: "#fffff",
-            },
-        },
-    });
-
     const [region, setRegion] = useState<string>("Global");
     const [famevideos, setFameVideos] = useState<IFameVideo[]>([]);
     const [videoIndex, setVideoIndex] = useState<number>(0);
@@ -158,7 +141,16 @@ function App() {
     const [regionList, setRegionList] = useState<string[]>([]);
 
     return (
-        <ThemeProvider theme={theme}>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                height: "100%",
+            }}
+        >
+            <CssBaseline />
+
             <Box
                 sx={{
                     display: "flex",
@@ -167,164 +159,150 @@ function App() {
                     height: "100%",
                 }}
             >
-                <CssBaseline />
-
                 <Box
                     sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "flex-start",
+                        width: "100%",
+                        border: "none",
                         height: "100%",
                     }}
                 >
-                    <Box
-                        sx={{
-                            width: "100%",
-                            border: "none",
-                            height: "100%",
-                        }}
-                    >
-                        {/* <Header
+                    {/* <Header
                             score={score}
                             region={region}
                             setRegion={setRegion}
                         /> */}
+                    <Box
+                        sx={{
+                            backgroundColor: "#121212",
+                            width: "100%",
+                            height: "80%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        {modalOpen && (
+                            <EndModal
+                                modalOpen={modalOpen}
+                                setModalOpen={setModalOpen}
+                                setVideoIndex={setVideoIndex}
+                                setScore={setScore}
+                                score={score}
+                                famevideos={famevideos}
+                                setFameVideos={setFameVideos}
+                            />
+                        )}
                         <Box
                             sx={{
+                                marginBlock: "auto",
+                                width: "80vw",
+                                height: "100vh",
                                 backgroundColor: "#121212",
-                                width: "100%",
-                                height: "80%",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
                             }}
                         >
-                            {modalOpen && (
-                                <EndModal
-                                    modalOpen={modalOpen}
-                                    setModalOpen={setModalOpen}
-                                    setVideoIndex={setVideoIndex}
-                                    setScore={setScore}
-                                    score={score}
-                                    famevideos={famevideos}
-                                    setFameVideos={setFameVideos}
-                                />
-                            )}
-                            <Box
-                                sx={{
-                                    marginBlock: "auto",
-                                    width: "80vw",
-                                    height: "100vh",
-                                    backgroundColor: "#121212",
-                                }}
-                            >
-                                <Player
-                                    famevideos={famevideos}
-                                    score={score}
-                                    setScore={setScore}
-                                    videoIndex={videoIndex}
-                                    setVideoIndex={setVideoIndex}
-                                    isPlaying={isPlaying}
-                                    setIsPlaying={setIsPlaying}
-                                    scrubberValue={scrubberValue}
-                                    videoRef={videoRef}
-                                    isZoomEnabled={isZoomEnabled}
-                                    handleTimeUpdate={handleTimeUpdate}
-                                    setModalOpen={setModalOpen}
-                                    handleSkipBackward={handleSkipBackward}
-                                    handleSkipForward={handleSkipForward}
-                                    handleScrubberChange={handleScrubberChange}
-                                    clickPosition={clickPosition}
-                                    zoomLevel={zoomLevel}
-                                    handleVideoClick={handleVideoClick}
-                                    handlePlayPause={handlePlayPause}
-                                />
-                            </Box>
-                        </Box>
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                top: "20%",
-                                right: "0%",
-                            }}
-                        >
-                            <Toolbar
-                                handleSloMo={handleSloMo}
-                                toggleZoom={toggleZoom}
+                            <Player
+                                famevideos={famevideos}
+                                score={score}
+                                setScore={setScore}
+                                videoIndex={videoIndex}
+                                setVideoIndex={setVideoIndex}
+                                isPlaying={isPlaying}
+                                setIsPlaying={setIsPlaying}
+                                scrubberValue={scrubberValue}
+                                videoRef={videoRef}
+                                isZoomEnabled={isZoomEnabled}
+                                handleTimeUpdate={handleTimeUpdate}
+                                setModalOpen={setModalOpen}
+                                handleSkipBackward={handleSkipBackward}
+                                handleSkipForward={handleSkipForward}
+                                handleScrubberChange={handleScrubberChange}
+                                clickPosition={clickPosition}
+                                zoomLevel={zoomLevel}
+                                handleVideoClick={handleVideoClick}
+                                handlePlayPause={handlePlayPause}
                             />
                         </Box>
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                bottom: "0%",
-                                left: "0%",
-                                color: "white",
-                            }}
-                        >
-                            <Typography variant="h5">Score: {score}</Typography>
-                        </Box>
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                top: "0%",
-                                left: "0%",
-                            }}
-                        >
-                            <Link to={"/"}>
-                                <img
-                                    src="./FameFaked.png"
-                                    width="10%"
-                                    style={{
-                                        marginTop: "1%",
-                                        marginLeft: "1%",
-                                    }}
-                                    draggable="false"
-                                />
-                            </Link>
-                        </Box>
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                top: "0%",
-                                right: "0%",
-                            }}
-                        >
-                            <PopupState
-                                variant="popover"
-                                popupId="demo-popup-menu"
-                            >
-                                {(popupState) => (
-                                    <React.Fragment>
-                                        <IconButton
-                                            sx={{ color: "white" }}
-                                            {...bindTrigger(popupState)}
-                                        >
-                                            <Public />: {region}
-                                        </IconButton>
-                                        <Menu {...bindMenu(popupState)}>
-                                            {regionList.map((region) => (
-                                                <MenuItem
-                                                    id={region}
-                                                    onClick={() => {
-                                                        setRegion(region);
-                                                        setLanguageModal(false);
-                                                        popupState.close;
-                                                    }}
-                                                    sx={{ color: "#11141c" }}
-                                                >
-                                                    {region}
-                                                </MenuItem>
-                                            ))}
-                                        </Menu>
-                                    </React.Fragment>
-                                )}
-                            </PopupState>
-                        </Box>
+                    </Box>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            top: "20%",
+                            right: "0%",
+                        }}
+                    >
+                        <Toolbar
+                            handleSloMo={handleSloMo}
+                            toggleZoom={toggleZoom}
+                        />
+                    </Box>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            bottom: "0%",
+                            left: "0%",
+                            color: "white",
+                        }}
+                    >
+                        <Typography variant="h5">Score: {score}</Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            top: "0%",
+                            left: "0%",
+                        }}
+                    >
+                        <Link to={"/"}>
+                            <img
+                                src="./FameFaked.png"
+                                width="10%"
+                                style={{
+                                    marginTop: "1%",
+                                    marginLeft: "1%",
+                                }}
+                                draggable="false"
+                            />
+                        </Link>
+                    </Box>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            top: "0%",
+                            right: "0%",
+                        }}
+                    >
+                        <PopupState variant="popover" popupId="demo-popup-menu">
+                            {(popupState) => (
+                                <React.Fragment>
+                                    <IconButton
+                                        sx={{ color: "white" }}
+                                        {...bindTrigger(popupState)}
+                                    >
+                                        <Public />: {region}
+                                    </IconButton>
+                                    <Menu {...bindMenu(popupState)}>
+                                        {regionList.map((region) => (
+                                            <MenuItem
+                                                id={region}
+                                                onClick={() => {
+                                                    setRegion(region);
+                                                    setLanguageModal(false);
+                                                    popupState.close;
+                                                }}
+                                                sx={{ color: "#11141c" }}
+                                            >
+                                                {region}
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </React.Fragment>
+                            )}
+                        </PopupState>
                     </Box>
                 </Box>
             </Box>
-        </ThemeProvider>
+        </Box>
     );
 }
 
