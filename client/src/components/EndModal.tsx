@@ -153,6 +153,7 @@ export default function EndModal({
                                             </form>
                                         </>
                                     )}
+                                <Leaderboard leaderboard={leaderboard} />
                                 <div className="buttonContainer">
                                     <Button onClick={resetGame}>
                                         Play Again
