@@ -202,6 +202,7 @@ function App() {
                 width: "80vw",
                 height: "100vh",
                 backgroundColor: "#121212",
+                paddingTop: "50px",
               }}
             >
               <VideoPlayer
