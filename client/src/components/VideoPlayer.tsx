@@ -3,306 +3,288 @@ import { getVideos, getVideosByRegion } from "../NetworkCalls";
 import { IFameVideo } from "../common/FameVideo";
 import EndModal from "./EndModal";
 import {
-    PlayArrow,
-    Pause,
-    FastForward,
-    FastRewind,
-    VolumeUp,
-    VolumeDown,
-    VolumeOff,
-    VolumeMute,
+  PlayArrow,
+  Pause,
+  FastForward,
+  FastRewind,
+  VolumeUp,
+  VolumeDown,
+  VolumeOff,
+  VolumeMute,
 } from "@mui/icons-material";
 
 import {
-    Box,
-    Grid,
-    IconButton,
-    Input,
-    Slider,
-    Tooltip,
-    Typography,
+  Box,
+  Grid,
+  IconButton,
+  Input,
+  Slider,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 export default function VideoPlayer({
-    famevideos,
-    score,
-    setScore,
-    videoIndex,
-    setVideoIndex,
-    isZoomEnabled,
-    setModalOpen,
-    clickPosition,
-    zoomLevel,
-    handleVideoClick,
+  famevideos,
+  score,
+  setScore,
+  videoIndex,
+  setVideoIndex,
+  isZoomEnabled,
+  setModalOpen,
+  clickPosition,
+  zoomLevel,
+  handleVideoClick,
+  handleScrubberChange,
+  videoRef,
+  handleTimeUpdate,
+  scrubberValue,
 }: any): ReactElement {
-    const [duration, setDuration] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [scrubberValue, setScrubberValue] = useState(0);
-    const [volume, setVolume] = useState(0.5);
-    const [isMuted, setIsMuted] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
+  const [duration, setDuration] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+  const [isMuted, setIsMuted] = useState(false);
 
-    const handlePlayPause = () => {
-        const video = videoRef.current;
-        if (video) {
-            if (isPlaying) {
-                video.pause();
-            } else {
-                video.play();
-            }
-            setIsPlaying(!isPlaying);
-        }
-    };
-
-    const handleSkipBackward = () => {
-        const video = videoRef.current;
-        if (video) {
-            video.currentTime -= 5;
-        }
-    };
-
-    const handleSkipForward = () => {
-        const video = videoRef.current;
-        if (video) {
-            video.currentTime += 5;
-        }
-    };
-
-    const handleScrubberChange = (event: Event, value: number | number[]) => {
-        const video = videoRef.current;
-        if (video) {
-            video.currentTime = (value as number) * duration;
-            setScrubberValue(value as number);
-        }
-    };
-
-    const handleTimeUpdate = () => {
-        const video = videoRef.current;
-        if (video) {
-            const newScrubberValue = video.currentTime / duration;
-            setScrubberValue(newScrubberValue);
-        }
-    };
-
-    const handleVolumeChange = (event: Event, value: number | number[]) => {
-        const newVolume = value as number;
-        setVolume(newVolume);
-        setIsMuted(false);
-    };
-
-    function getVolumeIcon() {
-        if (isMuted || volume === 0) {
-            return <VolumeMute />;
-        } else if (volume > 0 && volume <= 50) {
-            return <VolumeDown />;
-        } else {
-            return <VolumeUp />;
-        }
+  const handlePlayPause = () => {
+    const video = videoRef.current;
+    if (video) {
+      if (isPlaying) {
+        video.pause();
+      } else {
+        video.play();
+      }
+      setIsPlaying(!isPlaying);
     }
+  };
 
-    const handleMute = (
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ): void => {
-        setIsMuted(!isMuted);
-        const video = videoRef.current;
-        if (video) {
-            video.muted = !video.muted;
-        }
-    };
+  const handleSkipBackward = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime -= 5;
+    }
+  };
 
-    return (
-        <>
-            <div
-                style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "80%",
-                    overflow: isZoomEnabled ? "hidden" : "visible",
+  const handleSkipForward = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime += 5;
+    }
+  };
+
+  const handleVolumeChange = (event: Event, value: number | number[]) => {
+    const newVolume = value as number;
+    setVolume(newVolume);
+    setIsMuted(false);
+  };
+
+  function getVolumeIcon() {
+    if (isMuted || volume === 0) {
+      return <VolumeMute />;
+    } else if (volume > 0 && volume <= 50) {
+      return <VolumeDown />;
+    } else {
+      return <VolumeUp />;
+    }
+  }
+
+  const handleMute = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
+    setIsMuted(!isMuted);
+    const video = videoRef.current;
+    if (video) {
+      video.muted = !video.muted;
+    }
+  };
+
+  return (
+    <>
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "80%",
+          overflow: isZoomEnabled ? "hidden" : "visible",
+        }}
+      >
+        <video
+          ref={videoRef}
+          src={famevideos[videoIndex]?.videoLink}
+          width="100%"
+          height="80%"
+          onTimeUpdate={handleTimeUpdate}
+          style={{
+            position: "absolute",
+            top: isZoomEnabled
+              ? `${-clickPosition.y * 100 * (zoomLevel - 1)}%`
+              : "0",
+            left: isZoomEnabled
+              ? `${-clickPosition.x * 100 * (zoomLevel - 1)}%`
+              : "0",
+            width: `${100 * zoomLevel}%`,
+            height: `${100 * zoomLevel}%`,
+            transformOrigin: "center",
+          }}
+          onClick={handleVideoClick}
+          autoPlay
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          paddingTop: "30px",
+          margin: "auto",
+          justifyContent: "center",
+        }}
+      >
+        <button
+          className="button red"
+          onClick={() => {
+            if (famevideos[videoIndex]?.deepfaked) {
+              setScore(score + 1);
+              setVideoIndex(videoIndex + 1);
+            } else {
+              setModalOpen(true);
+            }
+            setIsPlaying(false);
+          }}
+          style={{ width: "10%" }}
+        >
+          <span>Fake</span>
+        </button>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "60%",
+            padding: "0px 10px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Grid container alignItems="center">
+              <Grid item xs={4}></Grid>
+              <Grid
+                item
+                xs={4}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-            >
-                <video
-                    ref={videoRef}
-                    src={famevideos[videoIndex]?.videoLink}
-                    width="100%"
-                    height="80%"
-                    onTimeUpdate={handleTimeUpdate}
-                    style={{
-                        position: "absolute",
-                        top: isZoomEnabled
-                            ? `${-clickPosition.y * 100 * (zoomLevel - 1)}%`
-                            : "0",
-                        left: isZoomEnabled
-                            ? `${-clickPosition.x * 100 * (zoomLevel - 1)}%`
-                            : "0",
-                        width: `${100 * zoomLevel}%`,
-                        height: `${100 * zoomLevel}%`,
-                        transformOrigin: "center",
+              >
+                <Tooltip title="Skip Backward">
+                  <IconButton
+                    onClick={handleSkipBackward}
+                    sx={{
+                      color: "white",
                     }}
-                    onClick={handleVideoClick}
-                    autoPlay
-                />
-            </div>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    paddingTop: "30px",
-                    margin: "auto",
-                    justifyContent: "center",
-                }}
-            >
-                <button
-                    className="button red"
-                    onClick={() => {
-                        if (famevideos[videoIndex]?.deepfaked) {
-                            setScore(score + 1);
-                            setVideoIndex(videoIndex + 1);
-                        } else {
-                            setModalOpen(true);
-                        }
-                        setIsPlaying(false);
+                  >
+                    <FastRewind />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={isPlaying ? "Pause" : "Play"}>
+                  <IconButton
+                    onClick={handlePlayPause}
+                    sx={{
+                      color: "white",
+                      marginLeft: 5,
                     }}
-                    style={{ width: "10%" }}
+                  >
+                    {isPlaying ? <Pause /> : <PlayArrow />}
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Skip Forward">
+                  <IconButton
+                    onClick={handleSkipForward}
+                    sx={{
+                      color: "white",
+                      marginLeft: 5,
+                    }}
+                  >
+                    <FastForward />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+              <Grid item xs={4}>
+                <Box
+                  sx={{
+                    maxWidth: 250,
+                  }}
                 >
-                    <span>Fake</span>
-                </button>
-
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        width: "60%",
-                        padding: "0px 10px",
-                    }}
-                >
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            width: "100%",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Grid container alignItems="center">
-                            <Grid item xs={4}></Grid>
-                            <Grid
-                                item
-                                xs={4}
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <Tooltip title="Skip Backward">
-                                    <IconButton
-                                        onClick={handleSkipBackward}
-                                        sx={{
-                                            color: "white",
-                                        }}
-                                    >
-                                        <FastRewind />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title={isPlaying ? "Pause" : "Play"}>
-                                    <IconButton
-                                        onClick={handlePlayPause}
-                                        sx={{
-                                            color: "white",
-                                            marginLeft: 5,
-                                        }}
-                                    >
-                                        {isPlaying ? <Pause /> : <PlayArrow />}
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Skip Forward">
-                                    <IconButton
-                                        onClick={handleSkipForward}
-                                        sx={{
-                                            color: "white",
-                                            marginLeft: 5,
-                                        }}
-                                    >
-                                        <FastForward />
-                                    </IconButton>
-                                </Tooltip>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Box
-                                    sx={{
-                                        maxWidth: 250,
-                                    }}
-                                >
-                                    <Grid
-                                        container
-                                        spacing={2}
-                                        alignItems="center"
-                                    >
-                                        <Grid item>
-                                            <IconButton
-                                                onClick={handleMute}
-                                                sx={{
-                                                    color: "white",
-                                                }}
-                                            >
-                                                {getVolumeIcon()}
-                                            </IconButton>
-                                        </Grid>
-                                        <Grid item xs>
-                                            <Slider
-                                                value={isMuted ? 0 : volume}
-                                                onChange={handleVolumeChange}
-                                                aria-labelledby="input-slider"
-                                                sx={{
-                                                    color: "#ffffff",
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                }}
-                                                size="small"
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </div>
-                    <Box
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                      <IconButton
+                        onClick={handleMute}
                         sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            width: "95%",
-                            alignContent: "center",
-                            margin: "0 auto",
+                          color: "white",
                         }}
-                    >
-                        <Slider
-                            value={scrubberValue}
-                            onChange={handleScrubberChange}
-                            aria-label="time slider"
-                            sx={{
-                                color: "#ffffff",
-                                height: 4,
-                            }}
-                        />
-                    </Box>
-                </div>
-                <button
-                    className="button green"
-                    onClick={() => {
-                        if (famevideos[videoIndex]?.deepfaked) {
-                            setModalOpen(true);
-                        } else {
-                            setScore(score + 1);
-                            setVideoIndex(videoIndex + 1);
-                        }
-                        setIsPlaying(false);
-                    }}
-                    style={{ width: "10%" }}
-                >
-                    <span>Real</span>
-                </button>
-            </div>
-        </>
-    );
+                      >
+                        {getVolumeIcon()}
+                      </IconButton>
+                    </Grid>
+                    <Grid item xs>
+                      <Slider
+                        value={isMuted ? 0 : volume}
+                        onChange={handleVolumeChange}
+                        aria-labelledby="input-slider"
+                        sx={{
+                          color: "#ffffff",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                        size="small"
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+            </Grid>
+          </div>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "95%",
+              alignContent: "center",
+              margin: "0 auto",
+            }}
+          >
+            <Slider
+              value={scrubberValue}
+              onChange={handleScrubberChange}
+              aria-label="time slider"
+              sx={{
+                color: "#ffffff",
+                height: 4,
+              }}
+            />
+          </Box>
+        </div>
+        <button
+          className="button green"
+          onClick={() => {
+            if (famevideos[videoIndex]?.deepfaked) {
+              setModalOpen(true);
+            } else {
+              setScore(score + 1);
+              setVideoIndex(videoIndex + 1);
+            }
+            setIsPlaying(false);
+          }}
+          style={{ width: "10%" }}
+        >
+          <span>Real</span>
+        </button>
+      </div>
+    </>
+  );
 }
