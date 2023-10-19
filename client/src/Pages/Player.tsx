@@ -87,10 +87,8 @@ function App() {
   };
 
   useEffect(() => {
-    if (videoIndex > 0) {
-      setScrubberValue(0);
-      setIsPlaying(true);
-    }
+    setScrubberValue(0);
+    setIsPlaying(true);
   }, [videoIndex]);
 
   const handleTimeUpdate = () => {
@@ -286,6 +284,7 @@ function App() {
                     {regionList.map((region) => (
                       <MenuItem
                         id={region}
+                        key={region}
                         onClick={() => {
                           setRegion(region);
                           setLanguageModal(false);

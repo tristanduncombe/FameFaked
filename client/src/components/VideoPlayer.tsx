@@ -38,23 +38,13 @@ export default function VideoPlayer({
   videoRef,
   handleTimeUpdate,
   scrubberValue,
+  isPlaying,
+  setIsPlaying,
+  handlePlayPause,
 }: any): ReactElement {
   const [duration, setDuration] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
-
-  const handlePlayPause = () => {
-    const video = videoRef.current;
-    if (video) {
-      if (isPlaying) {
-        video.pause();
-      } else {
-        video.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
 
   const handleSkipBackward = () => {
     const video = videoRef.current;
