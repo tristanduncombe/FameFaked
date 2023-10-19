@@ -41,7 +41,10 @@ const expressApp = (config: ConfigType) => {
   app.use(
     cors({
       credentials: true,
-      origin: [config.CLIENT_ORIGIN, "https://deco3801-htmlheroes.uqcloud.net"],
+      origin: [
+        config.CLIENT_ORIGIN,
+        /^https?:\/\/deco3801-htmlheroes\.uqcloud\.net$/,
+      ],
     })
   );
 
