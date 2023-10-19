@@ -67,6 +67,7 @@ export default function EndModal({
                 setModalOpen(false);
                 resetGame();
             }}
+            color="primary"
         >
             <Paper
                 className="modalContainer"
@@ -116,10 +117,10 @@ export default function EndModal({
                                     (leaderboard.length < 10 ||
                                         score > leaderboard[9].score) && (
                                         <>
-                                            <h2>
+                                            <Typography variant="h5">
                                                 Enter your name to submit your
                                                 score!
-                                            </h2>
+                                            </Typography>
 
                                             <form
                                                 onSubmit={handleSubmit}
@@ -128,22 +129,18 @@ export default function EndModal({
                                                 <TextField
                                                     id="outlined-basic"
                                                     label="Outlined"
+                                                    color="secondary"
                                                     variant="outlined"
                                                     value={name}
                                                     onChange={(e) =>
                                                         setName(e.target.value)
                                                     }
                                                     placeholder="Enter your name"
-                                                    sx={{
-                                                        color: "white",
-                                                    }}
                                                 />
                                                 <Button
                                                     variant="contained"
+                                                    color="secondary"
                                                     sx={{
-                                                        color: "black",
-                                                        backgroundColor:
-                                                            "white",
                                                         width: "50%",
                                                     }}
                                                     type="submit"
@@ -153,13 +150,18 @@ export default function EndModal({
                                             </form>
                                         </>
                                     )}
-                                <Leaderboard leaderboard={leaderboard} />
                                 <div className="buttonContainer">
-                                    <Button onClick={resetGame}>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        size="large"
+                                        onClick={resetGame}
+                                    >
                                         Play Again
                                     </Button>
                                 </div>
                             </div>
+                            <Leaderboard leaderboard={leaderboard} />
                         </div>
                     </Box>
                 </Container>
