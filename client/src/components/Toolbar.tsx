@@ -10,13 +10,20 @@ import {
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { ChevronLeft, ChevronRight, GridOn } from "@mui/icons-material";
+import BuildIcon from "@mui/icons-material/Build";
 
 interface toolbarProps {
   handleSloMo: () => void;
   slowMo: boolean;
   toggleZoom: () => void;
   isToggleZoom: boolean;
+  toggleConvolution: boolean;
+  setToggleConvolution: (toggleConvolution: boolean) => void;
+  kernel: number[][];
+  setKernel: (kernel: number[][]) => void;
+  kernelModal: boolean;
+  setKernelModal: (kernelModal: boolean) => void;
 }
 
 export default function Toolbar({
@@ -24,6 +31,12 @@ export default function Toolbar({
   toggleZoom,
   slowMo,
   isToggleZoom,
+  toggleConvolution,
+  setToggleConvolution,
+  kernel,
+  setKernel,
+  kernelModal,
+  setKernelModal,
 }: toolbarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -80,24 +93,28 @@ export default function Toolbar({
             </Tooltip>
           </IconButton>
 
-          <IconButton
-            onClick={toggleZoom}
-            sx={{
-              color: "black",
-              // if zoom is enabled, color the button white
-              backgroundColor: isToggleZoom ? "white" : "",
-            }}
-          >
-            <Tooltip title="Magnify">
-              <SearchIcon />
-            </Tooltip>
-          </IconButton>
-
           <Divider variant="middle" flexItem sx={{ bgcolor: "black" }} />
           {/* this side is like convultion layer */}
-          <IconButton sx={{ color: "black" }} onClick={() => handleSloMo()}>
-            <Tooltip title="Toggle Slowmotion">
-              <SlowMotionVideoIcon />
+          <IconButton
+            sx={{
+              color: "black",
+              backgroundColor: toggleConvolution ? "white" : "",
+            }}
+            onClick={() => setToggleConvolution(!toggleConvolution)}
+          >
+            <Tooltip title="Toggle Convolution">
+              <GridOn />
+            </Tooltip>
+          </IconButton>
+          <IconButton
+            sx={{
+              color: "black",
+              backgroundColor: toggleConvolution ? "white" : "",
+            }}
+            onClick={() => setKernelModal(!kernelModal)}
+          >
+            <Tooltip title="Edit Kernel">
+              <BuildIcon />
             </Tooltip>
           </IconButton>
         </Card>

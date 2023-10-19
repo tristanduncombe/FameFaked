@@ -28,9 +28,143 @@ function App() {
   const [scrubberValue, setScrubberValue] = useState<number>(0);
   const [sloMo, setSloMo] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const [isZoomEnabled, setIsZoomEnabled] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [toggleConvolution, setToggleConvolution] = useState(false);
+  const [kernel, setKernel] = useState<number[][]>([
+    [-2],
+    [-1],
+    [0],
+    [-1],
+    [1],
+    [1],
+    [0],
+    [1],
+    [2],
+  ]);
+  const [kernelModal, setKernelModal] = useState<boolean>(false);
+
+  function updateMouseFollower() {
+    const videoContainer = document.getElementById("video-container");
+    if (!videoContainer) return;
+
+    const videoElement = videoContainer.querySelector(
+      "video"
+    ) as HTMLVideoElement;
+
+    if (!videoElement) return;
+
+    const videoLocation = videoElement.getBoundingClientRect();
+
+    const mouseCanvas = document.getElementById("canvas") as HTMLCanvasElement;
+
+    mouseCanvas.style.left = mousePosition.x - mouseCanvas.width / 2 + "px";
+    mouseCanvas.style.top = mousePosition.y - mouseCanvas.height / 2 + "px";
+
+    mouseCanvas.width = videoElement.width;
+    mouseCanvas.height = videoElement.height;
+
+    const relX = mousePosition.x - videoLocation.left - videoElement.width / 2;
+    const relY = mousePosition.y - videoLocation.top - videoElement.height / 2;
+
+    if (!mouseCanvas) return;
+
+    const mouseCtx = (mouseCanvas as HTMLCanvasElement).getContext("2d");
+
+    if (!mouseCtx) return;
+
+    mouseCtx.drawImage(
+      videoElement,
+      relX,
+      relY,
+      videoElement.width,
+      videoElement.height,
+      0,
+      0,
+      videoElement.width,
+      videoElement.height
+    );
+
+    const imageData = mouseCtx.getImageData(
+      0,
+      0,
+      videoElement.width,
+      videoElement.height
+    );
+
+    convolute(imageData.data, videoElement.width, videoElement.height, kernel);
+    mouseCtx.putImageData(imageData, 0, 0);
+  }
+
+  function convolute(
+    data: Uint8ClampedArray,
+    width: number,
+    height: number,
+    kernel: number[][]
+  ) {
+    const kern = kernel.reduce((acc, current) => acc.concat(current), []);
+
+    const kernelSize = Math.sqrt(kernel.length);
+    const halfKernelSize = Math.floor(kernelSize / 2);
+
+    const resultData = new Uint8ClampedArray(data.length);
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const pixelIndex = (y * width + x) * 4;
+        let r = 0,
+          g = 0,
+          b = 0;
+
+        for (let ky = 0; ky < kernelSize; ky++) {
+          for (let kx = 0; kx < kernelSize; kx++) {
+            const dataIndexX = x + kx - halfKernelSize;
+            const dataIndexY = y + ky - halfKernelSize;
+
+            if (
+              dataIndexX >= 0 &&
+              dataIndexX < width &&
+              dataIndexY >= 0 &&
+              dataIndexY < height
+            ) {
+              const dataIdx = (dataIndexY * width + dataIndexX) * 4;
+              const kernelValue = kern[ky * kernelSize + kx];
+              r += data[dataIdx] * kernelValue;
+              g += data[dataIdx + 1] * kernelValue;
+              b += data[dataIdx + 2] * kernelValue;
+            }
+          }
+        }
+
+        resultData[pixelIndex] = r;
+        resultData[pixelIndex + 1] = g;
+        resultData[pixelIndex + 2] = b;
+        resultData[pixelIndex + 3] = data[pixelIndex + 3];
+      }
+    }
+
+    for (let i = 0; i < data.length; i++) {
+      data[i] = resultData[i];
+    }
+  }
+
+  useEffect(() => {
+    const videoContainer = document.getElementById("video-container");
+
+    if (!videoContainer) return;
+
+    videoContainer.addEventListener("mousemove", (event) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!toggleConvolution) return;
+    updateMouseFollower();
+  }, [mousePosition, scrubberValue]);
 
   const toggleZoom = () => {
     isZoomEnabled && setZoomLevel(1);
@@ -201,6 +335,7 @@ function App() {
                 height: "100vh",
                 backgroundColor: "#121212",
                 paddingTop: "50px",
+                paddingBottom: "50px",
               }}
             >
               <VideoPlayer
@@ -223,6 +358,8 @@ function App() {
                 zoomLevel={zoomLevel}
                 handleVideoClick={handleVideoClick}
                 handlePlayPause={handlePlayPause}
+                canvasRef={canvasRef}
+                toggleConvolution={toggleConvolution}
               />
             </Box>
           </Box>
@@ -238,8 +375,81 @@ function App() {
               toggleZoom={toggleZoom}
               slowMo={sloMo}
               isToggleZoom={isZoomEnabled}
+              toggleConvolution={toggleConvolution}
+              setToggleConvolution={setToggleConvolution}
+              kernel={kernel}
+              setKernel={setKernel}
+              kernelModal={kernelModal}
+              setKernelModal={setKernelModal}
             />
           </Box>
+          // Inside your App component
+          {kernelModal && (
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "white",
+                padding: "20px",
+                borderRadius: "10px",
+              }}
+            >
+              <Typography variant="h6">3x3 Grid Kernel Entry</Typography>
+              <div>
+                {[0, 1, 2].map((rowIndex) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {[0, 1, 2].map((colIndex) => (
+                      <input
+                        type="number"
+                        value={kernel[rowIndex * 3 + colIndex][0]}
+                        onChange={(e) => {
+                          const newKernel = [...kernel];
+                          newKernel[rowIndex * 3 + colIndex][0] =
+                            parseInt(e.target.value) || 0;
+                          setKernel(newKernel);
+                        }}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
+                <button
+                  className="button"
+                  onClick={() => {
+                    setKernelModal(false);
+                    setKernel([[-2], [-1], [0], [-1], [1], [1], [0], [1], [2]]);
+                  }}
+                  style={{ width: "10%", zIndex: "3" }}
+                >
+                  <span>Cancel</span>
+                </button>
+                <button
+                  className="button"
+                  onClick={() => {
+                    setKernelModal(false);
+                  }}
+                  style={{ width: "10%", zIndex: "3" }}
+                >
+                  <span>Submit</span>
+                </button>
+              </Box>
+            </Box>
+          )}
           <Box
             sx={{
               position: "absolute",

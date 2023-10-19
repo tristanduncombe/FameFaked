@@ -41,6 +41,8 @@ export default function VideoPlayer({
   isPlaying,
   setIsPlaying,
   handlePlayPause,
+  canvasRef,
+  toggleConvolution,
 }: any): ReactElement {
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
@@ -88,35 +90,34 @@ export default function VideoPlayer({
   return (
     <>
       <div
+        id="video-container"
         style={{
-          position: "relative",
           width: "100%",
           height: "80%",
           overflow: isZoomEnabled ? "hidden" : "visible",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <video
           ref={videoRef}
-          src={famevideos[videoIndex]?.videoLink}
+          id="video"
+          src={`./videos/${famevideos[videoIndex]?.videoLink}`}
           width="100%"
-          height="80%"
+          height="100%"
           onTimeUpdate={handleTimeUpdate}
           style={{
             position: "absolute",
-            top: isZoomEnabled
-              ? `${-clickPosition.y * 100 * (zoomLevel - 1)}%`
-              : "0",
-            left: isZoomEnabled
-              ? `${-clickPosition.x * 100 * (zoomLevel - 1)}%`
-              : "0",
-            width: `${100 * zoomLevel}%`,
-            height: `${100 * zoomLevel}%`,
+            width: "auto",
+            height: "auto",
             transformOrigin: "center",
           }}
           onClick={handleVideoClick}
           autoPlay
         />
       </div>
+      {toggleConvolution && <canvas ref={canvasRef} id="canvas" />}
       <div
         style={{
           display: "flex",
@@ -138,7 +139,7 @@ export default function VideoPlayer({
             }
             setIsPlaying(false);
           }}
-          style={{ width: "10%" }}
+          style={{ width: "10%", zIndex: "3" }}
         >
           <span>Fake</span>
         </button>
@@ -149,6 +150,10 @@ export default function VideoPlayer({
             flexDirection: "column",
             width: "60%",
             padding: "0px 10px",
+            backgroundColor: "black",
+            zIndex: "2",
+            opacity: "0.8",
+            borderRadius: "10px",
           }}
         >
           <div
@@ -269,7 +274,7 @@ export default function VideoPlayer({
             }
             setIsPlaying(false);
           }}
-          style={{ width: "10%" }}
+          style={{ width: "10%", zIndex: "3" }}
         >
           <span>Real</span>
         </button>

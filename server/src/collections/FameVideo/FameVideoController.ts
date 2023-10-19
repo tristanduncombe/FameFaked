@@ -35,11 +35,12 @@ export default (FameVideoService: IFameVideoService): IFameVideoController => {
     },
     insertVideo: async (req, res) => {
       try {
-        const { videoLink, deepfaked } = req.body;
+        const { videoLink, deepfaked, region } = req.body;
 
         const FameVideo = await FameVideoService.insertVideo(
           videoLink,
-          deepfaked
+          deepfaked,
+          region
         );
 
         if (!FameVideo.success) return failResponse(res, "No video found");

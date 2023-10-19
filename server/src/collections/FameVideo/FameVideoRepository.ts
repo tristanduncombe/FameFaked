@@ -11,7 +11,8 @@ export interface IFameVideoRepository {
   getVideos(): Promise<SuccessReturn<IFameVideo[]> | FailReturn>;
   insertVideo(
     videoLink: string,
-    deepfaked: boolean
+    deepfaked: boolean,
+    region: string
   ): Promise<SuccessReturn<boolean> | FailReturn>;
   getRegions(): Promise<SuccessReturn<string[]> | FailReturn>;
   getVideosByRegion(
@@ -33,10 +34,11 @@ export default (FameVideoCollection: Collection): IFameVideoRepository => {
 
       return success(FameVideos);
     },
-    insertVideo: async (videoLink, deepfaked) => {
+    insertVideo: async (videoLink, deepfaked, region) => {
       const FameVideo = await FameVideoCollection.insertOne({
-        videoLink,
+        videoLink: videoLink.split("/").pop(),
         deepfaked,
+        region,
       });
 
       if (!FameVideo) return failure("No video found");
