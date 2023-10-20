@@ -289,7 +289,7 @@
   {
     "videoLink": "fake_gretathunberg_1.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Europe", "oceania"]
+    "region": ["Americas", "Europe", "Oceania"]
   },
   {
     "videoLink": "fake_chineseelon_1.mp4",
@@ -345,47 +345,47 @@
   {
     "videoLink": "fake_margotrobbie_1.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_2.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_3.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_4.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_5.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_6.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_7.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_8.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_margotrobbie_9.mp4",
     "deepfaked": true,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "fake_morganfreeman_1.mp4",
@@ -700,37 +700,37 @@
   {
     "videoLink": "real_margotrobbie_1.mp4",
     "deepfaked": false,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "real_margotrobbie_2.mp4",
     "deepfaked": false,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "real_margotrobbie_3.mp4",
     "deepfaked": false,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "real_margotrobbie_4.mp4",
     "deepfaked": false,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "real_margotrobbie_5.mp4",
     "deepfaked": false,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "real_margotrobbie_6.mp4",
     "deepfaked": false,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "real_margotrobbie_7.mp4",
     "deepfaked": false,
-    "region": ["Americas", "oceania"]
+    "region": ["Americas", "Oceania"]
   },
   {
     "videoLink": "real_markzuckerburg_1.mp4",
@@ -850,12 +850,12 @@
   {
     "videoLink": "real_steveirwin_1.mp4",
     "deepfaked": false,
-    "region": ["oceania"]
+    "region": ["Oceania"]
   },
   {
     "videoLink": "real_steveirwin_2.mp4",
     "deepfaked": false,
-    "region": ["oceania"]
+    "region": ["Oceania"]
   },
   {
     "videoLink": "real_timotheechalamet_1.mp4",
