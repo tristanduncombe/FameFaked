@@ -8,7 +8,9 @@ If you do not have docker compose (or docker-compose) it is necessary to spin up
 
 `docker compose up --build`
 
-In a new terminal:
+## How To Seed DB
+
+In a new terminal while docker containers are running:
 
 `cd famefaked`
 
