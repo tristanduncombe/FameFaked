@@ -1,7 +1,4 @@
-import React, { ReactElement, useRef, useState, useEffect } from "react";
-import { getVideos, getVideosByRegion } from "../NetworkCalls";
-import { IFameVideo } from "../common/FameVideo";
-import EndModal from "./EndModal";
+import React, { ReactElement, useState } from "react";
 import {
   PlayArrow,
   Pause,
@@ -31,9 +28,6 @@ export default function VideoPlayer({
   setVideoIndex,
   isZoomEnabled,
   setModalOpen,
-  clickPosition,
-  zoomLevel,
-  handleVideoClick,
   handleScrubberChange,
   videoRef,
   handleTimeUpdate,
@@ -104,6 +98,7 @@ export default function VideoPlayer({
           alignItems: "center",
         }}
       >
+        {/* This is the video player  */}
         <video
           ref={videoRef}
           id="video"
@@ -117,10 +112,10 @@ export default function VideoPlayer({
             height: "auto",
             transformOrigin: "center",
           }}
-          onClick={handleVideoClick}
           autoPlay
         />
       </div>
+      {/* If convolution is enabled, display the canvas  */}
       {toggleConvolution && <canvas ref={canvasRef} id="canvas" />}
       <div
         style={{
@@ -132,6 +127,7 @@ export default function VideoPlayer({
           justifyContent: "center",
         }}
       >
+        {/* This is the button to select if the user thinks the video is fake  */}
         <button
           className="button red"
           onClick={() => {
@@ -147,7 +143,7 @@ export default function VideoPlayer({
         >
           <span>Fake</span>
         </button>
-
+        {/* The controls for the video player */}
         <div
           style={{
             display: "flex",
@@ -179,6 +175,7 @@ export default function VideoPlayer({
                   justifyContent: "center",
                 }}
               >
+                {/* The buttons to control the video player */}
                 <Tooltip title="Skip Backward">
                   <IconButton
                     onClick={handleSkipBackward}
@@ -212,6 +209,7 @@ export default function VideoPlayer({
                   </IconButton>
                 </Tooltip>
               </Grid>
+              {/* The input to change the time of the video */}
               <Grid item xs={4}>
                 <Box
                   sx={{
@@ -268,6 +266,7 @@ export default function VideoPlayer({
             />
           </Box>
         </div>
+        {/* This is the button to select if the user thinks the video is real  */}
         <button
           className="button green"
           onClick={() => {

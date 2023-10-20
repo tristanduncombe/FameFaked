@@ -7,6 +7,7 @@ interface IScore {
 
 export default function Score({ score }: IScore): ReactElement {
   return (
+    // Box to display the score
     <Box
       sx={{
         backgroundColor: "#0D0C1E",

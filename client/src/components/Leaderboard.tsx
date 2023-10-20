@@ -23,6 +23,7 @@ export default function Leaderboard({
       <Typography variant="h4" gutterBottom>
         Leaderboard
       </Typography>
+      {/*  This is the table that displays the leaderboard */}
       <TableContainer
         color="secondary"
         component={Paper}

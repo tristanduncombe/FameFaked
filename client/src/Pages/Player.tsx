@@ -1,23 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Player.css";
-import {
-  Button,
-  CssBaseline,
-  Menu,
-  MenuItem,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
+import { Button, CssBaseline, Menu, MenuItem } from "@mui/material";
 import VideoPlayer from "../components/VideoPlayer";
 import { getRegions, getVideos, getVideosByRegion } from "../NetworkCalls";
 import { IFameVideo } from "../common/FameVideo";
 import EndModal from "../components/EndModal";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Toolbar from "../components/Toolbar";
 import { Link } from "react-router-dom";
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
-import PublicIcon from "@mui/icons-material/Public";
-import { Public } from "@mui/icons-material";
 
 function App() {
   const [region, setRegion] = useState<string>("Global");
@@ -30,9 +21,7 @@ function App() {
   const [sloMo, setSloMo] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
-  const [isZoomEnabled, setIsZoomEnabled] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(1);
+
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [toggleConvolution, setToggleConvolution] = useState(false);
   const [kernel, setKernel] = useState<number[][]>([
@@ -49,6 +38,7 @@ function App() {
   const [kernelModal, setKernelModal] = useState<boolean>(false);
 
   function updateMouseFollower() {
+    // Get the video element
     const videoContainer = document.getElementById("video-container");
     if (!videoContainer) return;
 
@@ -58,16 +48,19 @@ function App() {
 
     if (!videoElement) return;
 
+    // Get the video location
     const videoLocation = videoElement.getBoundingClientRect();
 
     const mouseCanvas = document.getElementById("canvas") as HTMLCanvasElement;
 
+    // Set the canvas position to the mouse position minus the canvas size divided by 2 to center the image on the mouse
     mouseCanvas.style.left = mousePosition.x - mouseCanvas.width / 2 + "px";
     mouseCanvas.style.top = mousePosition.y - mouseCanvas.height / 2 + "px";
 
     mouseCanvas.width = videoElement.width;
     mouseCanvas.height = videoElement.height;
 
+    // Get the relative mouse position
     const relX = mousePosition.x - videoLocation.left - videoElement.width / 2;
     const relY = mousePosition.y - videoLocation.top - videoElement.height / 2;
 
@@ -77,6 +70,7 @@ function App() {
 
     if (!mouseCtx) return;
 
+    // Draw the video frame to the canvas
     mouseCtx.drawImage(
       videoElement,
       relX,
@@ -96,6 +90,7 @@ function App() {
       videoElement.height
     );
 
+    // Apply the convolution
     convolute(imageData.data, videoElement.width, videoElement.height, kernel);
     mouseCtx.putImageData(imageData, 0, 0);
   }
@@ -106,6 +101,7 @@ function App() {
     height: number,
     kernel: number[][]
   ) {
+    // Flatten the kernel
     const kern = kernel.reduce((acc, current) => acc.concat(current), []);
 
     const kernelSize = Math.sqrt(kernel.length);
@@ -113,13 +109,16 @@ function App() {
 
     const resultData = new Uint8ClampedArray(data.length);
 
+    // Loop through each pixel
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
+        // Get the pixel index
         const pixelIndex = (y * width + x) * 4;
         let r = 0,
           g = 0,
           b = 0;
 
+        // Loop through each kernel value and apply it to the pixel
         for (let ky = 0; ky < kernelSize; ky++) {
           for (let kx = 0; kx < kernelSize; kx++) {
             const dataIndexX = x + kx - halfKernelSize;
@@ -152,6 +151,7 @@ function App() {
     }
   }
 
+  // Add event listener to update the mouse position
   useEffect(() => {
     const videoContainer = document.getElementById("video-container");
 
@@ -162,32 +162,13 @@ function App() {
     });
   }, []);
 
+  // Update the mouse follower
   useEffect(() => {
     if (!toggleConvolution) return;
     updateMouseFollower();
   }, [mousePosition, scrubberValue]);
 
-  const toggleZoom = () => {
-    isZoomEnabled && setZoomLevel(1);
-    setIsZoomEnabled(!isZoomEnabled);
-  };
-
-  const handleVideoClick = (event: { clientX: number; clientY: number }) => {
-    if (zoomLevel > 1) {
-      setIsZoomEnabled(false);
-      setZoomLevel(1);
-    } else if (isZoomEnabled) {
-      const video = videoRef.current;
-      if (video) {
-        const rect = video.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width;
-        const y = (event.clientY - rect.top) / rect.height;
-        setClickPosition({ x, y });
-        setZoomLevel(2);
-      }
-    }
-  };
-
+  // Fetch videos from database
   async function fetchVideos() {
     const vid =
       region === "Global" ? await getVideos() : await getVideosByRegion(region);
@@ -195,17 +176,20 @@ function App() {
     setVideoIndex(0);
   }
 
+  // Fetch regions from database
   async function fetchRegions() {
     const regions = await getRegions();
     setRegionList(regions.payload);
   }
 
+  // Fetch videos and regions on page load
   useEffect(() => {
     fetchVideos();
     setScore(0);
     fetchRegions();
   }, [region]);
 
+  // Play or pause the video when the isPlaying state changes
   useEffect(() => {
     const video = videoRef.current;
     if (video && video.readyState > video.HAVE_CURRENT_DATA) {
@@ -217,15 +201,18 @@ function App() {
     }
   }, [isPlaying]);
 
+  // Update the scrubber value when the video time updates
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
+  // Reset the scrubber value and play the next video when the video index changes
   useEffect(() => {
     setScrubberValue(0);
     setIsPlaying(true);
   }, [videoIndex]);
 
+  // Update the scrubber value when the video time updates
   const handleTimeUpdate = () => {
     const video = videoRef.current;
     if (video) {
@@ -239,6 +226,7 @@ function App() {
     }
   };
 
+  // Toggle slow motion
   const handleSloMo = () => {
     const video = videoRef.current;
     if (video) {
@@ -247,6 +235,7 @@ function App() {
     }
   };
 
+  // Update the video time when the scrubber value changes
   const handleScrubberChange = (event: Event, newValue: number | number[]) => {
     const video = videoRef.current;
     if (video) {
@@ -257,6 +246,7 @@ function App() {
     }
   };
 
+  // Skip forward or backward 5 seconds
   const handleSkipForward = () => {
     const video = videoRef.current;
     if (video) {
@@ -265,6 +255,7 @@ function App() {
     }
   };
 
+  // Skip forward or backward 5 seconds
   const handleSkipBackward = () => {
     const video = videoRef.current;
     if (video) {
@@ -273,7 +264,6 @@ function App() {
     }
   };
 
-  const [languageModal, setLanguageModal] = useState<boolean>(false);
   const [regionList, setRegionList] = useState<string[]>([]);
 
   return (
@@ -302,11 +292,6 @@ function App() {
             height: "100%",
           }}
         >
-          {/* <Header
-                            score={score}
-                            region={region}
-                            setRegion={setRegion}
-                        /> */}
           <Box
             sx={{
               backgroundColor: "#121212",
@@ -318,6 +303,7 @@ function App() {
               justifyContent: "center",
             }}
           >
+            {/* Modal for when the game ends */}
             {modalOpen && (
               <EndModal
                 modalOpen={modalOpen}
@@ -339,6 +325,7 @@ function App() {
                 paddingBottom: "50px",
               }}
             >
+              {/* The video player */}
               <VideoPlayer
                 famevideos={famevideos}
                 score={score}
@@ -349,15 +336,11 @@ function App() {
                 setIsPlaying={setIsPlaying}
                 scrubberValue={scrubberValue}
                 videoRef={videoRef}
-                isZoomEnabled={isZoomEnabled}
                 handleTimeUpdate={handleTimeUpdate}
                 setModalOpen={setModalOpen}
                 handleSkipBackward={handleSkipBackward}
                 handleSkipForward={handleSkipForward}
                 handleScrubberChange={handleScrubberChange}
-                clickPosition={clickPosition}
-                zoomLevel={zoomLevel}
-                handleVideoClick={handleVideoClick}
                 handlePlayPause={handlePlayPause}
                 canvasRef={canvasRef}
                 toggleConvolution={toggleConvolution}
@@ -371,11 +354,10 @@ function App() {
               right: "0%",
             }}
           >
+            {/* The toolbar */}
             <Toolbar
               handleSloMo={handleSloMo}
-              toggleZoom={toggleZoom}
               slowMo={sloMo}
-              isToggleZoom={isZoomEnabled}
               toggleConvolution={toggleConvolution}
               setToggleConvolution={setToggleConvolution}
               kernel={kernel}
@@ -384,7 +366,7 @@ function App() {
               setKernelModal={setKernelModal}
             />
           </Box>
-          // Inside your App component
+          {/* If convolution is enabled, show the mouse follower */}
           {kernelModal && (
             <Box
               sx={{
@@ -409,6 +391,7 @@ function App() {
               >
                 Please use arrows in box to increase or decrease values
               </Typography>
+              {/* The kernel entry box */}
               <div>
                 {[0, 1, 2].map((rowIndex) => (
                   <div
@@ -460,6 +443,7 @@ function App() {
                   best for identifying deepfakes - Give it a go!
                 </div>
               </div>
+              {/* The buttons to submit or cancel the kernel */}
               <Box
                 sx={{
                   display: "flex",
@@ -492,6 +476,7 @@ function App() {
               </Box>
             </Box>
           )}
+          {/* The mouse follower */}
           <Box
             sx={{
               position: "absolute",
@@ -521,6 +506,7 @@ function App() {
               />
             </Link>
           </Box>
+          {/* The region selector */}
           <Box
             sx={{
               position: "absolute",
@@ -545,7 +531,6 @@ function App() {
                         key={region}
                         onClick={() => {
                           setRegion(region);
-                          setLanguageModal(false);
                           popupState.close;
                         }}
                         sx={{ color: "white" }}

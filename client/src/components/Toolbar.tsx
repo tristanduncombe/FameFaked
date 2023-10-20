@@ -7,17 +7,14 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight, GridOn } from "@mui/icons-material";
 import BuildIcon from "@mui/icons-material/Build";
+import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 
 interface toolbarProps {
   handleSloMo: () => void;
   slowMo: boolean;
-  toggleZoom: () => void;
-  isToggleZoom: boolean;
   toggleConvolution: boolean;
   setToggleConvolution: (toggleConvolution: boolean) => void;
   kernel: number[][];
@@ -28,13 +25,9 @@ interface toolbarProps {
 
 export default function Toolbar({
   handleSloMo,
-  toggleZoom,
   slowMo,
-  isToggleZoom,
   toggleConvolution,
   setToggleConvolution,
-  kernel,
-  setKernel,
   kernelModal,
   setKernelModal,
 }: toolbarProps) {
@@ -56,10 +49,12 @@ export default function Toolbar({
           color: "white",
         }}
       >
+        {/*  This is the button that toggles the toolbar  */}
         <Tooltip title={isCollapsed ? "Expand Toolbar" : "Collapse Toolbar"}>
           {isCollapsed ? <ChevronLeft /> : <ChevronRight />}
         </Tooltip>
       </IconButton>
+      {/* This is the toolbar */}
       <Collapse in={!isCollapsed} orientation="horizontal">
         <Card
           sx={{
@@ -81,6 +76,7 @@ export default function Toolbar({
           <Typography variant="h6" sx={{ textAlign: "center" }}>
             Tools
           </Typography>
+          {/*  Slowmotion toggle button */}
           <IconButton
             sx={{
               color: slowMo ? "green" : "black",
@@ -91,9 +87,8 @@ export default function Toolbar({
               <SlowMotionVideoIcon />
             </Tooltip>
           </IconButton>
-
           <Divider variant="middle" flexItem sx={{ bgcolor: "black" }} />
-          {/* this side is like convultion layer */}
+          {/*  Convolution toggle button */}
           <IconButton
             sx={{
               color: toggleConvolution ? "green" : "black",
@@ -104,6 +99,7 @@ export default function Toolbar({
               <GridOn />
             </Tooltip>
           </IconButton>
+          {/*  Kernel edit button */}
           <IconButton
             sx={{
               color: kernelModal ? "green" : "black",

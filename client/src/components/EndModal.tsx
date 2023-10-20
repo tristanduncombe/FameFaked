@@ -37,6 +37,7 @@ export default function EndModal({
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
+  // Randomly select 3 tips to display
   const [deepfakeTips] = useState(
     tips
       .sort(() => Math.random() - 0.5)
@@ -44,6 +45,7 @@ export default function EndModal({
       .map((tip: string) => <p>{tip}</p>)
   );
 
+  // Reset game state
   const resetGame = () => {
     setModalOpen(false);
     setVideoIndex(0);
@@ -51,6 +53,7 @@ export default function EndModal({
     setFameVideos(famevideos.sort(() => Math.random() - 0.5));
   };
 
+  // Fetch leaderboard from database
   async function fetchScoreboard() {
     const resp = await getScoreboard();
 
@@ -61,6 +64,7 @@ export default function EndModal({
     fetchScoreboard();
   }, []);
 
+  // Submit score to database
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await insertScore(score, name);
@@ -78,6 +82,7 @@ export default function EndModal({
       color="primary"
     >
       <Paper className="modalContainer" sx={{ backgroundColor: "#121212" }}>
+        {/*  button to close modal */}
         <Button
           onClick={() => {
             setModalOpen(false);
@@ -98,6 +103,7 @@ export default function EndModal({
         >
           <CloseIcon />
         </Button>
+        {/*  modal content */}
         <Container
           maxWidth={false}
           sx={{
@@ -118,6 +124,7 @@ export default function EndModal({
             >
               <div className="scoreContainer">
                 <h2>Score: {score}</h2>
+                {/*  if score is in top 10, prompt user to enter name */}
                 {!submitted &&
                   (leaderboard.length < 10 || score > leaderboard[9].score) && (
                     <>
@@ -160,10 +167,10 @@ export default function EndModal({
                     textAlign: "center",
                   }}
                 >
+                  {/* display 3 random tips */}
                   <h2>Tips</h2>
                   {deepfakeTips}
                 </div>
-
                 <div className="buttonContainer">
                   <Button
                     variant="contained"
