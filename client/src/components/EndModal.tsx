@@ -1,171 +1,185 @@
 import {
-    Box,
-    Button,
-    Container,
-    Modal,
-    Paper,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Container,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { ReactElement, useEffect, useState } from "react";
 import { IFameVideo } from "../common/FameVideo";
 import { getScoreboard, insertScore } from "../NetworkCalls";
 import Leaderboard from "./Leaderboard";
 import CloseIcon from "@mui/icons-material/Close";
+import tips from "../common/tips.json";
 
 interface IEndModal {
-    modalOpen: boolean;
-    score: number;
-    setModalOpen: (modalOpen: boolean) => void;
-    setVideoIndex: (videoIndex: number) => void;
-    setScore: (score: number) => void;
-    famevideos: IFameVideo[];
-    setFameVideos: (famevideos: IFameVideo[]) => void;
+  modalOpen: boolean;
+  score: number;
+  setModalOpen: (modalOpen: boolean) => void;
+  setVideoIndex: (videoIndex: number) => void;
+  setScore: (score: number) => void;
+  famevideos: IFameVideo[];
+  setFameVideos: (famevideos: IFameVideo[]) => void;
 }
 
 export default function EndModal({
-    modalOpen,
-    famevideos,
-    score,
-    setModalOpen,
-    setVideoIndex,
-    setScore,
-    setFameVideos,
+  modalOpen,
+  famevideos,
+  score,
+  setModalOpen,
+  setVideoIndex,
+  setScore,
+  setFameVideos,
 }: IEndModal): ReactElement {
-    const [name, setName] = useState<string>("");
-    const [leaderboard, setLeaderboard] = useState<any[]>([]);
-    const [submitted, setSubmitted] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
-    const resetGame = () => {
+  const [deepfakeTips] = useState(
+    tips
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map((tip: string) => <p>{tip}</p>)
+  );
+
+  const resetGame = () => {
+    setModalOpen(false);
+    setVideoIndex(0);
+    setScore(0);
+    setFameVideos(famevideos.sort(() => Math.random() - 0.5));
+  };
+
+  async function fetchScoreboard() {
+    const resp = await getScoreboard();
+
+    setLeaderboard(resp.payload);
+  }
+
+  useEffect(() => {
+    fetchScoreboard();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await insertScore(score, name);
+    await fetchScoreboard();
+    setSubmitted(true);
+  };
+
+  return (
+    <Modal
+      open={modalOpen}
+      onClose={() => {
         setModalOpen(false);
-        setVideoIndex(0);
-        setScore(0);
-        setFameVideos(famevideos.sort(() => Math.random() - 0.5));
-    };
-
-    async function fetchScoreboard() {
-        const resp = await getScoreboard();
-
-        setLeaderboard(resp.payload);
-    }
-
-    useEffect(() => {
-        fetchScoreboard();
-    }, []);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        await insertScore(score, name);
-        await fetchScoreboard();
-        setSubmitted(true);
-    };
-
-    return (
-        <Modal
-            open={modalOpen}
-            onClose={() => {
-                setModalOpen(false);
-                resetGame();
-            }}
-            color="primary"
+        resetGame();
+      }}
+      color="primary"
+    >
+      <Paper className="modalContainer" sx={{ backgroundColor: "#121212" }}>
+        <Button
+          onClick={() => {
+            setModalOpen(false);
+            resetGame();
+          }}
+          sx={{
+            color: "white",
+            width: "50px",
+            height: "50px",
+            position: "absolute",
+            right: "0",
+            top: "0",
+            fontSize: "20px",
+            "&:hover": {
+              color: "#FF6961",
+            },
+          }}
         >
-            <Paper
-                className="modalContainer"
-                sx={{ backgroundColor: "#121212" }}
+          <CloseIcon />
+        </Button>
+        <Container
+          maxWidth={false}
+          sx={{
+            width: "100%",
+            height: "100%",
+            paddingTop: "20px",
+          }}
+        >
+          <Box className="columnContainer">
+            <Typography variant="h3">Game Over</Typography>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                height: "90%",
+              }}
             >
-                <Button
-                    onClick={() => {
-                        setModalOpen(false);
-                        resetGame();
-                    }}
-                    sx={{
-                        color: "white",
-                        width: "50px",
-                        height: "50px",
-                        position: "absolute",
-                        right: "0",
-                        top: "0",
-                        fontSize: "20px",
-                        "&:hover": {
-                            color: "#FF6961",
-                        },
-                    }}
-                >
-                    <CloseIcon />
-                </Button>
-                <Container
-                    maxWidth={false}
-                    sx={{
-                        width: "100%",
-                        height: "100%",
-                        paddingTop: "20px",
-                    }}
-                >
-                    <Box className="columnContainer">
-                        <Typography variant="h3">Game Over</Typography>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                width: "100%",
-                                height: "90%",
-                            }}
-                        >
-                            <div className="scoreContainer">
-                                <h2>Score: {score}</h2>
-                                {!submitted &&
-                                    (leaderboard.length < 10 ||
-                                        score > leaderboard[9].score) && (
-                                        <>
-                                            <Typography variant="h5">
-                                                Enter your name to submit your
-                                                score!
-                                            </Typography>
+              <div className="scoreContainer">
+                <h2>Score: {score}</h2>
+                {!submitted &&
+                  (leaderboard.length < 10 || score > leaderboard[9].score) && (
+                    <>
+                      <Typography variant="h5">
+                        Enter your name to submit your score!
+                      </Typography>
 
-                                            <form
-                                                onSubmit={handleSubmit}
-                                                className="formContainer"
-                                            >
-                                                <TextField
-                                                    id="outlined-basic"
-                                                    label="Outlined"
-                                                    color="secondary"
-                                                    variant="outlined"
-                                                    value={name}
-                                                    onChange={(e) =>
-                                                        setName(e.target.value)
-                                                    }
-                                                    placeholder="Enter your name"
-                                                />
-                                                <Button
-                                                    variant="contained"
-                                                    color="secondary"
-                                                    sx={{
-                                                        width: "50%",
-                                                    }}
-                                                    type="submit"
-                                                >
-                                                    Submit
-                                                </Button>
-                                            </form>
-                                        </>
-                                    )}
-                                <div className="buttonContainer">
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        size="large"
-                                        onClick={resetGame}
-                                    >
-                                        Play Again
-                                    </Button>
-                                </div>
-                            </div>
-                            <Leaderboard leaderboard={leaderboard} />
-                        </div>
-                    </Box>
-                </Container>
-            </Paper>
-        </Modal>
-    );
+                      <form onSubmit={handleSubmit} className="formContainer">
+                        <TextField
+                          id="outlined-basic"
+                          color="secondary"
+                          variant="outlined"
+                          sx={{
+                            width: "80%",
+                          }}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Enter your name"
+                        />
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          sx={{
+                            width: "50%",
+                          }}
+                          type="submit"
+                        >
+                          Submit
+                        </Button>
+                      </form>
+                    </>
+                  )}
+                <div
+                  className="tipsContainer"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <h2>Tips</h2>
+                  {deepfakeTips}
+                </div>
+
+                <div className="buttonContainer">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    onClick={resetGame}
+                  >
+                    Play Again
+                  </Button>
+                </div>
+              </div>
+              <Leaderboard leaderboard={leaderboard} />
+            </div>
+          </Box>
+        </Container>
+      </Paper>
+    </Modal>
+  );
 }

@@ -299,7 +299,7 @@
   {
     "videoLink": "https://ia600508.us.archive.org/4/items/fake_gretathunberg_1/fake_gretathunberg_1.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Europe", "Oceana"]
+    "region": ["Americas", "Europe", "oceania"]
   },
   {
     "videoLink": "https://ia600504.us.archive.org/20/items/fake_chineseelon_1/fake_chineseelon_1.mp4",
@@ -359,47 +359,47 @@
   {
     "videoLink": "https://ia600507.us.archive.org/26/items/fake_margotrobbie_1/fake_margotrobbie_1.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia600502.us.archive.org/9/items/fake_margotrobbie_2/fake_margotrobbie_2.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia600507.us.archive.org/27/items/fake_margotrobbie_3/fake_margotrobbie_3.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia600500.us.archive.org/18/items/fake_margotrobbie_4/fake_margotrobbie_4.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia800506.us.archive.org/34/items/fake_margotrobbie_5/fake_margotrobbie_5.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia600507.us.archive.org/18/items/fake_margotrobbie_6/fake_margotrobbie_6.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia800509.us.archive.org/30/items/fake_margotrobbie_7/fake_margotrobbie_7.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia800508.us.archive.org/28/items/fake_margotrobbie_8/fake_margotrobbie_8.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia600507.us.archive.org/29/items/fake_margotrobbie_9/fake_margotrobbie_9.mp4",
     "deepfaked": true,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia800509.us.archive.org/2/items/fake_morganfreeman_1/fake_morganfreeman_1.mp4",
@@ -739,37 +739,37 @@
   {
     "videoLink": "https://ia600509.us.archive.org/23/items/real_margotrobbie_1/real_margotrobbie_1.mp4",
     "deepfaked": false,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia601403.us.archive.org/24/items/real_margotrobbie_2/real_margotrobbie_2.mp4",
     "deepfaked": false,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia600501.us.archive.org/8/items/real_margotrobbie_3/real_margotrobbie_3.mp4",
     "deepfaked": false,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia601509.us.archive.org/17/items/real_margotrobbie_4/real_margotrobbie_4.mp4",
     "deepfaked": false,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia600508.us.archive.org/20/items/real_margotrobbie_5/real_margotrobbie_5.mp4",
     "deepfaked": false,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia800501.us.archive.org/14/items/real_margotrobbie_6/real_margotrobbie_6.mp4",
     "deepfaked": false,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia802300.us.archive.org/12/items/real_margotrobbie_7/real_margotrobbie_7.mp4",
     "deepfaked": false,
-    "region": ["Americas", "Oceana"]
+    "region": ["Americas", "oceania"]
   },
   {
     "videoLink": "https://ia801406.us.archive.org/3/items/real_markzuckerburg_1/real_markzuckerburg_1.mp4",
@@ -894,12 +894,12 @@
   {
     "videoLink": "https://ia601506.us.archive.org/32/items/real_steveirwin_1/real_steveirwin_1.mp4",
     "deepfaked": false,
-    "region": ["Oceana"]
+    "region": ["oceania"]
   },
   {
     "videoLink": "https://ia601406.us.archive.org/16/items/real_steveirwin_2/real_steveirwin_2.mp4",
     "deepfaked": false,
-    "region": ["Oceana"]
+    "region": ["oceania"]
   },
   {
     "videoLink": "https://ia600504.us.archive.org/2/items/real_timotheechalamet_1/real_timotheechalamet_1.mp4",

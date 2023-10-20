@@ -44,7 +44,7 @@ export default function VideoPlayer({
   canvasRef,
   toggleConvolution,
 }: any): ReactElement {
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(50);
   const [isMuted, setIsMuted] = useState(false);
 
   const handleSkipBackward = () => {
@@ -64,6 +64,10 @@ export default function VideoPlayer({
   const handleVolumeChange = (event: Event, value: number | number[]) => {
     const newVolume = value as number;
     setVolume(newVolume);
+    const video = videoRef.current;
+    if (video) {
+      video.volume = newVolume / 100;
+    }
     setIsMuted(false);
   };
 
@@ -212,6 +216,7 @@ export default function VideoPlayer({
                 <Box
                   sx={{
                     maxWidth: 250,
+                    paddingRight: 2,
                   }}
                 >
                   <Grid container spacing={2} alignItems="center">

@@ -109,7 +109,7 @@ export default function Toolbar({
           <IconButton
             sx={{
               color: "black",
-              backgroundColor: toggleConvolution ? "white" : "",
+              backgroundColor: kernelModal ? "white" : "",
             }}
             onClick={() => setKernelModal(!kernelModal)}
           >

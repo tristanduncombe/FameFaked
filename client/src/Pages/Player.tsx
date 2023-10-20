@@ -396,7 +396,18 @@ function App() {
                 borderRadius: "10px",
               }}
             >
-              <Typography variant="h6">3x3 Grid Kernel Entry</Typography>
+              <Typography
+                variant="h4"
+                sx={{ color: "black", textAlign: "center" }}
+              >
+                3x3 Grid Kernel Entry
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ color: "black", textAlign: "center", padding: "10px" }}
+              >
+                Please use arrows in box to increase or decrease values
+              </Typography>
               <div>
                 {[0, 1, 2].map((rowIndex) => (
                   <div
@@ -420,6 +431,26 @@ function App() {
                     ))}
                   </div>
                 ))}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    fontSize: "15px",
+                    color: "black",
+                    textAlign: "center",
+                    padding: "10px",
+                  }}
+                >
+                  Applying a convolution layer to images helps to extract or
+                  highlight specific features such as edges! It works by
+                  combining each pixel (the center input) with the ones around
+                  it (the 8 inputs around the center) using elementwise
+                  multiplication and summation. so 0 0 0 0 1 0 0 0 0 will just
+                  give your origional image but 1 1 1 0 0 0 -1 -1 -1 will
+                  greatly enhance north facing edges. Try and see what works
+                  best for identifying deepfakes - Give it a go!
+                </div>
               </div>
               <Box
                 sx={{
