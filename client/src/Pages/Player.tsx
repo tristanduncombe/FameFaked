@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Player.css";
 import {
+  Button,
   CssBaseline,
   Menu,
   MenuItem,
@@ -391,7 +392,7 @@ function App() {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-                backgroundColor: "white",
+                backgroundColor: "#919191",
                 padding: "20px",
                 borderRadius: "10px",
               }}
@@ -427,6 +428,13 @@ function App() {
                             parseInt(e.target.value) || 0;
                           setKernel(newKernel);
                         }}
+                        style={{
+                          backgroundColor: "#919191",
+                          borderColor: "#121212",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          textAlign: "center",
+                        }}
                       />
                     ))}
                   </div>
@@ -457,10 +465,12 @@ function App() {
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "center",
+                  gap: "10px",
                 }}
               >
                 <button
                   className="button"
+                  color="#121212"
                   onClick={() => {
                     setKernelModal(false);
                     setKernel([[-2], [-1], [0], [-1], [1], [1], [0], [1], [2]]);
@@ -471,6 +481,7 @@ function App() {
                 </button>
                 <button
                   className="button"
+                  color="#121212"
                   onClick={() => {
                     setKernelModal(false);
                   }}
@@ -520,12 +531,13 @@ function App() {
             <PopupState variant="popover" popupId="demo-popup-menu">
               {(popupState) => (
                 <React.Fragment>
-                  <IconButton
-                    sx={{ color: "white" }}
+                  <Button
+                    size={"large"}
+                    sx={{ color: "white", padding: "20px" }}
                     {...bindTrigger(popupState)}
                   >
-                    <Public />: {region}
-                  </IconButton>
+                    Region: {region}
+                  </Button>
                   <Menu {...bindMenu(popupState)}>
                     {regionList.map((region) => (
                       <MenuItem
@@ -536,7 +548,7 @@ function App() {
                           setLanguageModal(false);
                           popupState.close;
                         }}
-                        sx={{ color: "#11141c" }}
+                        sx={{ color: "white" }}
                       >
                         {region}
                       </MenuItem>

@@ -83,8 +83,7 @@ export default function Toolbar({
           </Typography>
           <IconButton
             sx={{
-              color: "black",
-              backgroundColor: slowMo ? "white" : "",
+              color: slowMo ? "green" : "black",
             }}
             onClick={() => handleSloMo()}
           >
@@ -97,8 +96,7 @@ export default function Toolbar({
           {/* this side is like convultion layer */}
           <IconButton
             sx={{
-              color: "black",
-              backgroundColor: toggleConvolution ? "white" : "",
+              color: toggleConvolution ? "green" : "black",
             }}
             onClick={() => setToggleConvolution(!toggleConvolution)}
           >
@@ -108,8 +106,7 @@ export default function Toolbar({
           </IconButton>
           <IconButton
             sx={{
-              color: "black",
-              backgroundColor: kernelModal ? "white" : "",
+              color: kernelModal ? "green" : "black",
             }}
             onClick={() => setKernelModal(!kernelModal)}
           >
