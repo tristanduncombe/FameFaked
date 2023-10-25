@@ -39,7 +39,15 @@ export default function HomePage(): ReactElement {
         variant="contained"
         component={Link}
         to="/play"
-        sx={{ color: "#121212", bgcolor: "White", mr: 2, mb: 5 }}
+        sx={{
+          color: "#121212",
+          bgcolor: "White",
+          mr: 2,
+          mb: 5,
+          "&:hover": {
+            bgcolor: "#919191",
+          },
+        }}
         size="large"
       >
         Start Playing <PlayArrow />
