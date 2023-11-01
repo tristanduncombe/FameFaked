@@ -153,6 +153,7 @@ export default function Toolbar({
             "&:hover": {
               bgcolor: "#919191",
             },
+            borderRadius: "0px",
           }}
           variant="contained"
           endIcon={<Language />}
