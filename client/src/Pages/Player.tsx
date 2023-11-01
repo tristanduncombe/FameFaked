@@ -300,6 +300,7 @@ function App() {
             {/* Modal for when the game ends */}
             {modalOpen && (
               <EndModal
+                setIsPlaying={setIsPlaying}
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
                 setVideoIndex={setVideoIndex}

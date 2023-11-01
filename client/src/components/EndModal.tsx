@@ -13,8 +13,10 @@ import { getScoreboard, insertScore } from "../NetworkCalls";
 import Leaderboard from "./Leaderboard";
 import CloseIcon from "@mui/icons-material/Close";
 import tips from "../common/tips.json";
+import { Link } from "react-router-dom";
 
 interface IEndModal {
+  setIsPlaying: (isPlaying: boolean) => void;
   modalOpen: boolean;
   score: number;
   setModalOpen: (modalOpen: boolean) => void;
@@ -25,6 +27,7 @@ interface IEndModal {
 }
 
 export default function EndModal({
+  setIsPlaying,
   modalOpen,
   famevideos,
   score,
@@ -51,6 +54,7 @@ export default function EndModal({
     setVideoIndex(0);
     setScore(0);
     setFameVideos(famevideos.sort(() => Math.random() - 0.5));
+    setIsPlaying(false);
   };
 
   // Fetch leaderboard from database
@@ -84,10 +88,8 @@ export default function EndModal({
       <Paper className="modalContainer" sx={{ backgroundColor: "black" }}>
         {/*  button to close modal */}
         <Button
-          onClick={() => {
-            setModalOpen(false);
-            resetGame();
-          }}
+          component={Link}
+          to="/"
           sx={{
             color: "white",
             width: "50px",
