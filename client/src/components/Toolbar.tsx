@@ -82,7 +82,7 @@ export default function Toolbar({
     <Box
       sx={{
         position: "relative",
-        backgroundColor: "#121212",
+        backgroundColor: "black",
         width: "100%",
         borderTopLeftRadius: "10px",
         borderBottomLeftRadius: "10px",
@@ -127,18 +127,20 @@ export default function Toolbar({
           },
           transform: isCollapsed ? "translateX(-100%)" : "",
           transition: "transform 0.3s ease-in-out",
-          backgroundColor: "#121212",
+          backgroundColor: "black",
         }}
       >
         <Button
           sx={{
             color: "white",
-            bgcolor: "#121212",
+            bgcolor: "black",
             "&:hover": {
-              bgcolor: "#121212",
+              bgcolor: "black",
             },
+            cursor: "default",
           }}
           variant="contained"
+          disableRipple
         >
           <Typography variant="h6">Toolbar</Typography>
         </Button>
@@ -146,7 +148,7 @@ export default function Toolbar({
         <Button
           sx={{
             color: "white",
-            bgcolor: "#121212",
+            bgcolor: "black",
             "&:hover": {
               bgcolor: "#919191",
             },
@@ -178,7 +180,7 @@ export default function Toolbar({
         <Button
           sx={{
             color: "white",
-            bgcolor: "#121212",
+            bgcolor: "black",
             "&:hover": {
               bgcolor: "#919191",
             },
@@ -200,7 +202,7 @@ export default function Toolbar({
         <Button
           sx={{
             color: "white",
-            bgcolor: "#121212",
+            bgcolor: "black",
             "&:hover": {
               bgcolor: "#919191",
             },
@@ -221,10 +223,11 @@ export default function Toolbar({
         <Button
           sx={{
             color: "white",
-            bgcolor: "#121212",
+            bgcolor: "black",
             "&:hover": {
               bgcolor: "#919191",
             },
+            borderTopLeftRadius: "0px",
           }}
           onClick={() => setKernelModal(!kernelModal)}
         >
@@ -243,13 +246,15 @@ export default function Toolbar({
         <Button
           sx={{
             color: "white",
-            bgcolor: "#121212",
+            bgcolor: "black",
             "&:hover": {
-              bgcolor: "#121212",
+              bgcolor: "black",
             },
             padding: "20px 0px",
+            cursor: "default",
           }}
           variant="contained"
+          disableRipple
         >
           <Typography variant="h6">Score: {score}</Typography>
         </Button>
