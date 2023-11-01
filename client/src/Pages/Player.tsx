@@ -376,6 +376,7 @@ function App() {
                 padding: "20px",
                 borderRadius: "10px",
                 border: "1px solid white",
+                zIndex: "5",
               }}
             >
               <Button
@@ -448,7 +449,15 @@ function App() {
                 variant="h6"
                 sx={{ color: "white", textAlign: "center", padding: "10px" }}
               >
-                Please use arrows in the box to increase or decrease values
+                Please use arrows in the box to increase or decrease values or
+                select a preset kernel.
+              </Typography>
+
+              <Typography
+                variant="h4"
+                sx={{ color: "white", textAlign: "center", padding: "10px" }}
+              >
+                Custom Kernel
               </Typography>
               {/* The kernel entry box */}
               <div
@@ -489,35 +498,64 @@ function App() {
                   </div>
                 ))}
               </div>
-              {/* The buttons to submit or cancel the kernel */}
+
+              <Typography
+                variant="h4"
+                sx={{ color: "white", textAlign: "center", padding: "20px" }}
+              >
+                Preset Kernels
+              </Typography>
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "center",
                   gap: "10px",
+                  paddingBottom: "20px",
                 }}
               >
                 <button
                   className="button"
                   color="black"
                   onClick={() => {
+                    setKernel([[0], [0], [0], [0], [1], [0], [0], [0], [0]]);
                     setKernelModal(false);
-                    setKernel([[-2], [-1], [0], [-1], [1], [1], [0], [1], [2]]);
                   }}
-                  style={{ width: "10%", zIndex: "3" }}
+                  style={{ width: "25%", zIndex: "3" }}
                 >
-                  <span>Cancel</span>
+                  <span>Blur</span>
                 </button>
                 <button
                   className="button"
                   color="black"
                   onClick={() => {
+                    setKernel([
+                      [-1],
+                      [-1],
+                      [-1],
+                      [-1],
+                      [9],
+                      [-1],
+                      [-1],
+                      [-1],
+                      [-1],
+                    ]);
                     setKernelModal(false);
                   }}
-                  style={{ width: "10%", zIndex: "3" }}
+                  style={{ width: "25%", zIndex: "3" }}
                 >
-                  <span>Submit</span>
+                  <span>Sharpen</span>
+                </button>
+                <button
+                  className="button"
+                  color="black"
+                  onClick={() => {
+                    setKernel([[-2], [-1], [0], [-1], [1], [1], [0], [1], [2]]);
+                    setKernelModal(false);
+                  }}
+                  style={{ width: "25%", zIndex: "3" }}
+                >
+                  <span>Edge Detection</span>
                 </button>
               </Box>
             </Box>
