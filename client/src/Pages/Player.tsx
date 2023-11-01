@@ -8,7 +8,10 @@ import EndModal from "../components/EndModal";
 import { Box, Typography } from "@mui/material";
 import Toolbar from "../components/Toolbar";
 import { Link } from "react-router-dom";
-import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
+import { bindMenu, bindTrigger } from "material-ui-popup-state";
+import { usePopupState } from "material-ui-popup-state/hooks";
+import CloseIcon from "@mui/icons-material/Close";
+import HelpIcon from "@mui/icons-material/Help";
 
 function App() {
   const [region, setRegion] = useState<string>("Global");
@@ -36,7 +39,7 @@ function App() {
     [2],
   ]);
   const [kernelModal, setKernelModal] = useState<boolean>(false);
-
+  const popupState = usePopupState({ variant: "popover", popupId: "demoMenu" });
   function updateMouseFollower() {
     // Get the video element
     const videoContainer = document.getElementById("video-container");
@@ -369,25 +372,92 @@ function App() {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-                backgroundColor: "#919191",
+                backgroundColor: "black",
                 padding: "20px",
                 borderRadius: "10px",
+                border: "1px solid white",
               }}
             >
-              <Typography
-                variant="h4"
-                sx={{ color: "black", textAlign: "center" }}
+              <Button
+                onClick={() => {
+                  setKernelModal(false);
+                }}
+                sx={{
+                  color: "white",
+                  width: "50px",
+                  height: "50px",
+                  position: "absolute",
+                  right: "0",
+                  top: "0",
+                  fontSize: "20px",
+                  "&:hover": {
+                    color: "#FF6961",
+                  },
+                }}
               >
-                3x3 Grid Kernel Entry
-              </Typography>
+                <CloseIcon />
+              </Button>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  sx={{ color: "white", textAlign: "center" }}
+                >
+                  3x3 Grid Kernel Entry
+                </Typography>
+                <Button
+                  {...bindTrigger(popupState)}
+                  sx={{
+                    color: "white",
+                    width: "50px",
+                    height: "50px",
+                    fontSize: "20px",
+                    "&:hover": {
+                      color: "#FF6961",
+                    },
+                  }}
+                >
+                  <HelpIcon />
+                </Button>
+              </div>
+              <Menu {...bindMenu(popupState)}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: "white",
+                    textAlign: "center",
+                    width: "600px",
+                    zIndex: "3",
+                    padding: "10px",
+                  }}
+                >
+                  The kernel is a 3x3 grid of values that are multiplied by the
+                  pixels around the mouse. The sum of the values is then used to
+                  determine the color of the pixel. The kernel is applied to the
+                  mouse position. The kernel can be used to blur, sharpen, or
+                  detect edges in the image.
+                </Typography>
+              </Menu>
               <Typography
                 variant="h6"
-                sx={{ color: "black", textAlign: "center", padding: "10px" }}
+                sx={{ color: "white", textAlign: "center", padding: "10px" }}
               >
-                Please use arrows in box to increase or decrease values
+                Please use arrows in the box to increase or decrease values
               </Typography>
               {/* The kernel entry box */}
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "30px",
+                }}
+              >
                 {[0, 1, 2].map((rowIndex) => (
                   <div
                     style={{
@@ -407,36 +477,17 @@ function App() {
                           setKernel(newKernel);
                         }}
                         style={{
-                          backgroundColor: "#919191",
-                          borderColor: "#121212",
+                          backgroundColor: "black",
+                          borderColor: "white",
                           alignItems: "center",
                           justifyContent: "center",
                           textAlign: "center",
+                          color: "white",
                         }}
                       />
                     ))}
                   </div>
                 ))}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    fontSize: "15px",
-                    color: "black",
-                    textAlign: "center",
-                    padding: "10px",
-                  }}
-                >
-                  Applying a convolution layer to images helps to extract or
-                  highlight specific features such as edges! It works by
-                  combining each pixel (the center input) with the ones around
-                  it (the 8 inputs around the center) using elementwise
-                  multiplication and summation. so 0 0 0 0 1 0 0 0 0 will just
-                  give your origional image but 1 1 1 0 0 0 -1 -1 -1 will
-                  greatly enhance north facing edges. Try and see what works
-                  best for identifying deepfakes - Give it a go!
-                </div>
               </div>
               {/* The buttons to submit or cancel the kernel */}
               <Box
@@ -449,7 +500,7 @@ function App() {
               >
                 <button
                   className="button"
-                  color="#121212"
+                  color="black"
                   onClick={() => {
                     setKernelModal(false);
                     setKernel([[-2], [-1], [0], [-1], [1], [1], [0], [1], [2]]);
@@ -460,7 +511,7 @@ function App() {
                 </button>
                 <button
                   className="button"
-                  color="#121212"
+                  color="black"
                   onClick={() => {
                     setKernelModal(false);
                   }}
