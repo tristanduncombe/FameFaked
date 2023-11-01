@@ -176,17 +176,10 @@ function App() {
     setVideoIndex(0);
   }
 
-  // Fetch regions from database
-  async function fetchRegions() {
-    const regions = await getRegions();
-    setRegionList(regions.payload);
-  }
-
   // Fetch videos and regions on page load
   useEffect(() => {
     fetchVideos();
     setScore(0);
-    fetchRegions();
   }, [region]);
 
   // Play or pause the video when the isPlaying state changes
@@ -263,8 +256,6 @@ function App() {
       video.currentTime = newTime;
     }
   };
-
-  const [regionList, setRegionList] = useState<string[]>([]);
 
   return (
     <Box
@@ -352,10 +343,13 @@ function App() {
               position: "absolute",
               top: "20%",
               right: "0%",
+              width: "15%",
             }}
           >
             {/* The toolbar */}
             <Toolbar
+              region={region}
+              setRegion={setRegion}
               handleSloMo={handleSloMo}
               slowMo={sloMo}
               toggleConvolution={toggleConvolution}
@@ -505,43 +499,6 @@ function App() {
                 draggable="false"
               />
             </Link>
-          </Box>
-          {/* The region selector */}
-          <Box
-            sx={{
-              position: "absolute",
-              top: "0%",
-              right: "0%",
-            }}
-          >
-            <PopupState variant="popover" popupId="demo-popup-menu">
-              {(popupState) => (
-                <React.Fragment>
-                  <Button
-                    size={"large"}
-                    sx={{ color: "white", padding: "20px" }}
-                    {...bindTrigger(popupState)}
-                  >
-                    Region: {region}
-                  </Button>
-                  <Menu {...bindMenu(popupState)}>
-                    {regionList.map((region) => (
-                      <MenuItem
-                        id={region}
-                        key={region}
-                        onClick={() => {
-                          setRegion(region);
-                          popupState.close;
-                        }}
-                        sx={{ color: "white" }}
-                      >
-                        {region}
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </React.Fragment>
-              )}
-            </PopupState>
           </Box>
         </Box>
       </Box>

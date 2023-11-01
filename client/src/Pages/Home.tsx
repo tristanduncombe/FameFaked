@@ -55,7 +55,7 @@ export default function HomePage(): ReactElement {
       <Typography sx={{ color: "white", mb: 5 }}>
         Looking for help? Take a look at our guide!
       </Typography>
-      <Typography
+      {/* <Typography
         sx={{
           color: "white",
           fontSize: "14px",
@@ -88,7 +88,7 @@ export default function HomePage(): ReactElement {
         onClick={() => window.open("https://www.google.com")}
       >
         Policies
-      </Typography>
+      </Typography> */}
     </Box>
   );
 }
