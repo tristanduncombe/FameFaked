@@ -81,7 +81,7 @@ export default function EndModal({
       }}
       color="primary"
     >
-      <Paper className="modalContainer" sx={{ backgroundColor: "#121212" }}>
+      <Paper className="modalContainer" sx={{ backgroundColor: "black" }}>
         {/*  button to close modal */}
         <Button
           onClick={() => {
@@ -123,40 +123,6 @@ export default function EndModal({
               }}
             >
               <div className="scoreContainer">
-                <h2>Score: {score}</h2>
-                {/*  if score is in top 10, prompt user to enter name */}
-                {!submitted &&
-                  (leaderboard.length < 10 || score > leaderboard[9].score) && (
-                    <>
-                      <Typography variant="h5">
-                        Enter your name to submit your score!
-                      </Typography>
-
-                      <form onSubmit={handleSubmit} className="formContainer">
-                        <TextField
-                          id="outlined-basic"
-                          color="secondary"
-                          variant="outlined"
-                          sx={{
-                            width: "80%",
-                          }}
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Enter your name"
-                        />
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          sx={{
-                            width: "50%",
-                          }}
-                          type="submit"
-                        >
-                          Submit
-                        </Button>
-                      </form>
-                    </>
-                  )}
                 <div
                   className="tipsContainer"
                   style={{
@@ -165,6 +131,7 @@ export default function EndModal({
                     alignItems: "center",
                     justifyContent: "center",
                     textAlign: "center",
+                    height: "100%",
                   }}
                 >
                   {/* display 3 random tips */}
@@ -174,15 +141,71 @@ export default function EndModal({
                 <div className="buttonContainer">
                   <Button
                     variant="contained"
-                    color="secondary"
-                    size="large"
                     onClick={resetGame}
+                    sx={{
+                      color: "white",
+                      bgcolor: "black",
+                      border: "1px solid white",
+                      width: "50%",
+                      height: "100px",
+                      padding: "10px",
+                      "&:hover": {
+                        bgcolor: "#919191",
+                      },
+                    }}
                   >
                     Play Again
                   </Button>
                 </div>
               </div>
-              <Leaderboard leaderboard={leaderboard} />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {!submitted && (
+                  <>
+                    <Typography variant="h5">
+                      Enter your name to submit your score!
+                    </Typography>
+
+                    <form onSubmit={handleSubmit} className="formContainer">
+                      <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        sx={{
+                          width: "100%",
+                          //  make white border
+                          "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                            {
+                              borderColor: "white",
+                            },
+                        }}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Enter your name"
+                      />
+                      <Button
+                        variant="contained"
+                        sx={{
+                          width: "50%",
+                          height: "100%",
+                          color: "white",
+                          bgcolor: "black",
+                          border: "1px solid white",
+                        }}
+                        type="submit"
+                      >
+                        Submit
+                      </Button>
+                    </form>
+                  </>
+                )}
+                <Leaderboard leaderboard={leaderboard} />
+              </div>
             </div>
           </Box>
         </Container>
