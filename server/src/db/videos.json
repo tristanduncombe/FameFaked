@@ -76,16 +76,6 @@
     "region": ["Americas", "Asias"]
   },
   {
-    "videoLink": "fake_keanureeves_4.mp4",
-    "deepfaked": true,
-    "region": ["Americas", "Asias"]
-  },
-  {
-    "videoLink": "fake_keanureeves_5.mp4",
-    "deepfaked": true,
-    "region": ["Americas", "Asias"]
-  },
-  {
     "videoLink": "fake_keanureeves_6.mp4",
     "deepfaked": true,
     "region": ["Americas", "Asias"]
@@ -237,19 +227,9 @@
     "region": ["Asias"]
   },
   {
-    "videoLink": "fake_aishwariyarai_2.mp4",
-    "deepfaked": true,
-    "region": ["Asias"]
-  },
-  {
     "videoLink": "fake_aishwariyarai_3.mp4",
     "deepfaked": true,
     "region": ["Asias"]
-  },
-  {
-    "videoLink": "fake_annehathaway_1.mp4",
-    "deepfaked": true,
-    "region": ["Americas"]
   },
   {
     "videoLink": "fake_barrackobama_1.mp4",
@@ -528,27 +508,12 @@
     "region": ["Europe"]
   },
   {
-    "videoLink": "fake_timotheechalamet_2.mp4",
-    "deepfaked": true,
-    "region": ["Europe"]
-  },
-  {
     "videoLink": "fake_timotheechalamet_3.mp4",
     "deepfaked": true,
     "region": ["Europe"]
   },
   {
     "videoLink": "fake_timotheechalamet_4.mp4",
-    "deepfaked": true,
-    "region": ["Europe"]
-  },
-  {
-    "videoLink": "fake_timotheechalamet_5.mp4",
-    "deepfaked": true,
-    "region": ["Europe"]
-  },
-  {
-    "videoLink": "fake_timotheechalamet_6.mp4",
     "deepfaked": true,
     "region": ["Europe"]
   },
@@ -586,11 +551,6 @@
     "videoLink": "fake_wonderwoman_5.mp4",
     "deepfaked": true,
     "region": ["Americas"]
-  },
-  {
-    "videoLink": "real_aishwariyarai_1.mp4",
-    "deepfaked": false,
-    "region": ["Asias"]
   },
   {
     "videoLink": "real_aishwariyarai_2.mp4",
