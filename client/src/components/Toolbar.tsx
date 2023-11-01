@@ -138,6 +138,7 @@ export default function Toolbar({
               bgcolor: "black",
             },
             cursor: "default",
+            borderRadius: "0px",
           }}
           variant="contained"
           disableRipple
@@ -184,6 +185,7 @@ export default function Toolbar({
             "&:hover": {
               bgcolor: "#919191",
             },
+            borderRadius: "0px",
           }}
           onClick={() => handleSloMo()}
         >
@@ -206,6 +208,7 @@ export default function Toolbar({
             "&:hover": {
               bgcolor: "#919191",
             },
+            borderRadius: "0px",
           }}
           onClick={() => setToggleConvolution(!toggleConvolution)}
         >
@@ -228,6 +231,7 @@ export default function Toolbar({
               bgcolor: "#919191",
             },
             borderTopLeftRadius: "0px",
+            borderRadius: "0px",
           }}
           onClick={() => setKernelModal(!kernelModal)}
         >
@@ -252,6 +256,7 @@ export default function Toolbar({
             },
             padding: "20px 0px",
             cursor: "default",
+            borderRadius: "0px",
           }}
           variant="contained"
           disableRipple
