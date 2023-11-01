@@ -349,6 +349,7 @@ function App() {
             {/* The toolbar */}
             <Toolbar
               region={region}
+              score={score}
               setRegion={setRegion}
               handleSloMo={handleSloMo}
               slowMo={sloMo}
@@ -470,17 +471,6 @@ function App() {
               </Box>
             </Box>
           )}
-          {/* The mouse follower */}
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: "0%",
-              left: "0%",
-              color: "white",
-            }}
-          >
-            <Typography variant="h5">Score: {score}</Typography>
-          </Box>
           <Box
             sx={{
               position: "absolute",

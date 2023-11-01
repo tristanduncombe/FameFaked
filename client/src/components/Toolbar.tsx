@@ -31,6 +31,7 @@ interface toolbarProps {
   kernelModal: boolean;
   setKernelModal: (kernelModal: boolean) => void;
   region: string;
+  score: number;
   setRegion: (region: string) => void;
 }
 
@@ -40,6 +41,7 @@ export default function Toolbar({
   toggleConvolution,
   setToggleConvolution,
   kernelModal,
+  score,
   setKernelModal,
   region,
   setRegion,
@@ -133,6 +135,19 @@ export default function Toolbar({
             color: "white",
             bgcolor: "#121212",
             "&:hover": {
+              bgcolor: "#121212",
+            },
+          }}
+          variant="contained"
+        >
+          <Typography variant="h6">Toolbar</Typography>
+        </Button>
+        <Divider sx={{ color: "white", backgroundColor: "white" }} />
+        <Button
+          sx={{
+            color: "white",
+            bgcolor: "#121212",
+            "&:hover": {
               bgcolor: "#919191",
             },
           }}
@@ -140,9 +155,8 @@ export default function Toolbar({
           endIcon={<Language />}
           onClick={handleButtonClick} // Use the handleButtonClick function
         >
-          {region}
+          Region
         </Button>
-
         <Menu
           anchorEl={anchorEl} // Set the anchor element
           open={menuOpen}
@@ -182,7 +196,6 @@ export default function Toolbar({
             </Tooltip>
           </IconButton>
         </Button>
-
         {/*  Convolution toggle button */}
         <Button
           sx={{
@@ -205,7 +218,6 @@ export default function Toolbar({
             </Tooltip>
           </IconButton>
         </Button>
-
         <Button
           sx={{
             color: "white",
@@ -226,6 +238,20 @@ export default function Toolbar({
               <BuildIcon />
             </Tooltip>
           </IconButton>
+        </Button>
+        <Divider sx={{ color: "white", backgroundColor: "white" }} />
+        <Button
+          sx={{
+            color: "white",
+            bgcolor: "#121212",
+            "&:hover": {
+              bgcolor: "#121212",
+            },
+            padding: "20px 0px",
+          }}
+          variant="contained"
+        >
+          <Typography variant="h6">Score: {score}</Typography>
         </Button>
       </Card>
     </Box>
